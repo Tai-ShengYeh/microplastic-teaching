@@ -12,20 +12,20 @@
   html, body { font-size: 18px; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root{
-    --bg:#0a0e27; --bg-2:#11163a; --bg-3:#161c4a;
-    --ink:#eef3ff; --ink-2:#b8c5e0; --ink-3:#7a8bb8; --ink-4:#4a5680;
-    --accent:#00d4ff;
-    --accent-2:#ff006e;
-    --warn:#ffb800;
-    --danger:#ff4466;
-    --good:#5eff9e;
+    --bg:#fafaf7; --bg-2:#f0f2f7; --bg-3:#e8ecf3;
+    --ink:#0d1024; --ink-2:#3a4561; --ink-3:#6a7894; --ink-4:#98a2b5;
+    --accent:#006eb5;
+    --accent-2:#c8155c;
+    --warn:#d97500;
+    --danger:#d22c4d;
+    --good:#2d9c5f;
     --t1: clamp(2rem, 4.2vw, 3.4rem);
     --t2: clamp(1.4rem, 2.8vw, 2.3rem);
     --t3: clamp(1rem, 1.5vw, 1.25rem);
     --t4: clamp(0.85rem, 1.1vw, 1.05rem);
     --s1:80px; --s2:48px; --s3:24px; --s4:12px;
-    --card-bg: rgba(255,255,255,0.04);
-    --card-border: rgba(255,255,255,0.08);
+    --card-bg: #ffffff;
+    --card-border: #e3e7ee;
   }
   body{
     font-family:'Noto Sans TC',sans-serif;
@@ -39,8 +39,8 @@
     content:'';
     position:fixed; inset:0;
     background:
-      radial-gradient(circle at 15% 20%, rgba(0,212,255,0.12), transparent 40%),
-      radial-gradient(circle at 85% 80%, rgba(255,0,110,0.10), transparent 45%),
+      radial-gradient(circle at 15% 20%, rgba(0,110,181,0.12), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(200,21,92,0.10), transparent 45%),
       linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
     z-index:-1;
   }
@@ -156,7 +156,7 @@
   }
   .blob.b1{ width:480px; height:480px; background:var(--accent); top:-120px; right:-80px; }
   .blob.b2{ width:380px; height:380px; background:var(--accent-2); bottom:-100px; left:-60px; animation-delay:-4s; }
-  .blob.b3{ width:300px; height:300px; background:#7d3cff; top:30%; left:35%; animation-delay:-8s; opacity:0.28; }
+  .blob.b3{ width:300px; height:300px; background:#7d3cff; top:30%; left:35%; animation-delay:-8s; opacity:0.12; }
   @keyframes float{
     0%,100%{ transform:translate(0,0) scale(1); }
     50%{ transform:translate(40px,-30px) scale(1.08); }
@@ -174,7 +174,7 @@
     font-weight:900;
     line-height:1.05;
     letter-spacing:-2px;
-    background:linear-gradient(135deg, #fff 0%, #b8c5e0 60%, var(--accent) 100%);
+    background:linear-gradient(135deg, var(--ink) 0%, var(--accent) 55%, var(--accent-2) 100%);
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
@@ -281,12 +281,12 @@
   }
   .guess-btn:hover{
     border-color:var(--accent);
-    background:rgba(0,212,255,0.05);
+    background:rgba(0,110,181,0.05);
     transform:translateY(-4px);
   }
   .guess-btn.correct{
     border-color:var(--good);
-    background:rgba(94,255,158,0.1);
+    background:rgba(45,156,95,0.1);
     color:var(--good);
   }
   .guess-btn.wrong{
@@ -332,7 +332,7 @@
     color:#fff;
     font-family:'JetBrains Mono',monospace;
     font-weight:700;
-    box-shadow: 0 0 24px rgba(0,212,255,0.3);
+    box-shadow: 0 0 24px rgba(0,110,181,0.3);
   }
   .scale-label{
     font-size:0.95rem;
@@ -365,7 +365,7 @@
     font-weight:900;
     font-size:1.1rem;
     text-align:center;
-    box-shadow: 0 0 40px rgba(0,212,255,0.4);
+    box-shadow: 0 0 40px rgba(0,110,181,0.4);
     z-index:3;
   }
   .src-node{
@@ -454,7 +454,7 @@
   }
   .dot.filled{
     background:linear-gradient(135deg, var(--accent-2), #ff5599);
-    box-shadow: 0 0 6px rgba(255,0,110,0.5);
+    box-shadow: 0 0 6px rgba(200,21,92,0.5);
   }
 
   /* Table */
@@ -516,7 +516,7 @@
     border-radius:50px;
     font-weight:700;
     font-size:1.15rem;
-    box-shadow: 0 0 36px rgba(0,212,255,0.3);
+    box-shadow: 0 0 36px rgba(0,110,181,0.3);
     z-index:3;
     white-space:nowrap;
   }
@@ -531,9 +531,9 @@
     backdrop-filter: blur(10px);
     z-index:2;
   }
-  .dtree-leaf.l1{ left:6%; border-color:rgba(0,212,255,0.4); }
-  .dtree-leaf.l2{ left:38%; border-color:rgba(255,184,0,0.4); }
-  .dtree-leaf.l3{ right:6%; border-color:rgba(94,255,158,0.4); }
+  .dtree-leaf.l1{ left:6%; border-color:rgba(0,110,181,0.4); }
+  .dtree-leaf.l2{ left:38%; border-color:rgba(217,117,0,0.4); }
+  .dtree-leaf.l3{ right:6%; border-color:rgba(45,156,95,0.4); }
   .dtree-leaf .leaf-when{
     font-family:'JetBrains Mono',monospace;
     font-size:10px;
@@ -577,10 +577,10 @@
     background:
       conic-gradient(
         from 0deg,
-        rgba(0,212,255,0.15) 0deg 90deg,
-        rgba(255,0,110,0.15) 90deg 180deg,
-        rgba(255,184,0,0.15) 180deg 270deg,
-        rgba(94,255,158,0.15) 270deg 360deg
+        rgba(0,110,181,0.15) 0deg 90deg,
+        rgba(200,21,92,0.15) 90deg 180deg,
+        rgba(217,117,0,0.15) 180deg 270deg,
+        rgba(45,156,95,0.15) 270deg 360deg
       );
     border:1px solid var(--card-border);
   }
@@ -644,7 +644,7 @@
   .resp-q.q3{ bottom:6%; left:10%; }
   .resp-q.q3 .q-icon{ background:var(--warn); }
   .resp-q.q4{ top:6%; left:10%; }
-  .resp-q.q4 .q-icon{ background:var(--good); color:#0a0e27; }
+  .resp-q.q4 .q-icon{ background:var(--good); color:#fafaf7; }
 
   /* CTA / checklist (slide 17) */
   .check-list{
@@ -691,7 +691,7 @@
   .reflect-box{
     margin-top:28px;
     padding:24px 28px;
-    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(255,0,110,0.06));
+    background: linear-gradient(135deg, rgba(0,110,181,0.08), rgba(200,21,92,0.06));
     border:1px solid var(--card-border);
     border-radius:14px;
   }
@@ -937,20 +937,20 @@
     font-family:'JetBrains Mono',monospace;
     font-size:0.7rem;
     letter-spacing:1px;
-    background:rgba(0,212,255,0.12);
+    background:rgba(0,110,181,0.12);
     color:var(--accent);
     margin-right:6px;
   }
-  .tag.warn{ background:rgba(255,184,0,0.12); color:var(--warn); }
-  .tag.danger{ background:rgba(255,68,102,0.12); color:var(--danger); }
+  .tag.warn{ background:rgba(217,117,0,0.12); color:var(--warn); }
+  .tag.danger{ background:rgba(210,44,77,0.12); color:var(--danger); }
   .tag.academic{
-    background:linear-gradient(90deg, rgba(125,60,255,0.18), rgba(255,0,110,0.12));
-    color:#c8a0ff;
+    background:linear-gradient(90deg, rgba(125,60,255,0.18), rgba(200,21,92,0.12));
+    color:#7c3aed;
   }
 
   /* Academic kicker style */
   .kicker.academic{
-    color:#c8a0ff;
+    color:#7c3aed;
   }
 
   /* Carrier diagram (Slide 13 new) */
@@ -972,7 +972,7 @@
     font-weight:900;
     font-size:1.05rem;
     text-align:center;
-    box-shadow: 0 0 40px rgba(0,212,255,0.4);
+    box-shadow: 0 0 40px rgba(0,110,181,0.4);
     z-index:3;
   }
   .carrier-sat{
@@ -1016,7 +1016,7 @@
     font-family:'JetBrains Mono',monospace;
     font-size:10px;
     letter-spacing:2px;
-    color:#c8a0ff;
+    color:#7c3aed;
     margin-bottom:8px;
   }
   .tech-card .tc-title{
@@ -1047,7 +1047,7 @@
   }
   .gap-item{
     padding:12px 14px;
-    background:rgba(255,184,0,0.05);
+    background:rgba(217,117,0,0.05);
     border-left:3px solid var(--warn);
     border-radius:0 8px 8px 0;
   }
@@ -1083,7 +1083,7 @@
     font-size: clamp(3rem, 6vw, 4.6rem);
     font-weight:700;
     line-height:1;
-    background:linear-gradient(135deg, #ff006e, #ffb800);
+    background:linear-gradient(135deg, var(--accent-2), var(--warn));
     -webkit-background-clip:text;
     background-clip:text;
     color:transparent;
@@ -1118,7 +1118,7 @@
   .mech-list li .mech-dot{
     width:24px; height:24px;
     border-radius:50%;
-    background:rgba(255,0,110,0.15);
+    background:rgba(200,21,92,0.15);
     color:var(--accent-2);
     font-family:'JetBrains Mono',monospace;
     font-weight:700;
@@ -1253,8 +1253,8 @@
       <svg viewBox="0 0 1000 460" preserveAspectRatio="none">
         <defs>
           <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#ff006e" stop-opacity="0.4"/>
+            <stop offset="0%" stop-color="#006eb5" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#c8155c" stop-opacity="0.4"/>
           </linearGradient>
         </defs>
         <line x1="200" y1="100" x2="500" y2="230" stroke="url(#lineGrad)" stroke-width="1.5" stroke-dasharray="4 4"/>
@@ -1520,8 +1520,8 @@
         <svg viewBox="0 0 500 380" preserveAspectRatio="xMidYMid meet">
           <defs>
             <linearGradient id="carrLine" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#ff006e" stop-opacity="0.4"/>
+              <stop offset="0%" stop-color="#006eb5" stop-opacity="0.7"/>
+              <stop offset="100%" stop-color="#c8155c" stop-opacity="0.4"/>
             </linearGradient>
           </defs>
           <line x1="250" y1="190" x2="100" y2="60"  stroke="url(#carrLine)" stroke-width="1.5" stroke-dasharray="4 4"/>
@@ -1545,7 +1545,7 @@
           <li><span class="mech-dot">2</span><div><b style="color:var(--ink)">載運 Carry</b> ── 隨食物進入腸道、血液、淋巴系統，跑遍全身。</div></li>
           <li><span class="mech-dot">3</span><div><b style="color:var(--ink)">釋放 Release</b> ── 在腸道、肝臟、腦部「局部釋放」，毒性比污染物單獨更強。</div></li>
         </ul>
-        <p class="small-text" style="margin-top:16px;padding:12px 14px;background:rgba(255,0,110,0.06);border-radius:8px;border-left:3px solid var(--accent-2)">
+        <p class="small-text" style="margin-top:16px;padding:12px 14px;background:rgba(200,21,92,0.06);border-radius:8px;border-left:3px solid var(--accent-2)">
           <span class="tag danger">實例</span>地中海貽貝同時接觸 <b style="color:var(--ink)">PE 微塑膠 + 多環芳烴</b>，毒性指標明顯比兩者單獨高。
         </p>
       </div>
@@ -1637,7 +1637,7 @@
 
     <div class="grid-2" style="margin-top:20px;gap:36px">
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;color:#c8a0ff;font-size:0.78rem;letter-spacing:2px;margin-bottom:10px">▸ 進入大腦的三條路</div>
+        <div style="font-family:'JetBrains Mono',monospace;color:#7c3aed;font-size:0.78rem;letter-spacing:2px;margin-bottom:10px">▸ 進入大腦的三條路</div>
         <ul class="mech-list">
           <li><span class="mech-dot">1</span><div>穿越<b style="color:var(--ink)">血腦屏障</b>（奈米塑膠 &lt; 100 nm）</div></li>
           <li><span class="mech-dot">2</span><div>引起<b style="color:var(--ink)">腦微血管阻塞</b>與血栓（Huang 2025）</div></li>
@@ -1732,11 +1732,11 @@
     </div>
 
     <div class="grid-2" style="margin-top:24px;gap:32px">
-      <div style="background:rgba(94,255,158,0.05);border:1px solid rgba(94,255,158,0.2);border-radius:14px;padding:20px 24px">
+      <div style="background:rgba(45,156,95,0.05);border:1px solid rgba(45,156,95,0.2);border-radius:14px;padding:20px 24px">
         <div style="color:var(--good);font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:2px;margin-bottom:6px">✓ 初步保護建議</div>
         <div class="small-text" style="color:var(--ink-2)">成人每日 <b style="color:var(--good)">50 mg 花青素</b> ≈ 1 杯藍莓 / 半杯黑莓 / 1/4 顆茄子皮。</div>
       </div>
-      <div style="background:rgba(255,184,0,0.05);border:1px solid rgba(255,184,0,0.2);border-radius:14px;padding:20px 24px">
+      <div style="background:rgba(217,117,0,0.05);border:1px solid rgba(217,117,0,0.2);border-radius:14px;padding:20px 24px">
         <div style="color:var(--warn);font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:2px;margin-bottom:6px">⚠ 別過度解讀</div>
         <div class="small-text" style="color:var(--ink-2)">這是<b style="color:var(--ink)">動物實驗</b>。<b style="color:var(--ink)">人類臨床</b>仍待證實，花青素不是「解藥」，是補強。</div>
       </div>
@@ -1795,16 +1795,16 @@
       <svg viewBox="0 0 1000 460" preserveAspectRatio="none">
         <defs>
           <linearGradient id="dt1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#00d4ff" stop-opacity="0.2"/>
+            <stop offset="0%" stop-color="#006eb5" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#006eb5" stop-opacity="0.2"/>
           </linearGradient>
           <linearGradient id="dt2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#ff006e" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#ffb800" stop-opacity="0.2"/>
+            <stop offset="0%" stop-color="#c8155c" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#d97500" stop-opacity="0.2"/>
           </linearGradient>
           <linearGradient id="dt3" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#00d4ff" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#5eff9e" stop-opacity="0.2"/>
+            <stop offset="0%" stop-color="#006eb5" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#2d9c5f" stop-opacity="0.2"/>
           </linearGradient>
         </defs>
         <line x1="500" y1="110" x2="180" y2="320" stroke="url(#dt1)" stroke-width="2"/>
@@ -2040,15 +2040,15 @@
           label:'重金屬吸附量 (μg/g)',
           data:[1554, 1357, 1278, 1087, 269, 219],
           backgroundColor:[
-            'rgba(255,0,110,0.75)',
-            'rgba(255,80,130,0.65)',
-            'rgba(255,140,90,0.6)',
-            'rgba(255,184,0,0.6)',
-            'rgba(0,212,255,0.55)',
-            'rgba(0,180,200,0.45)'
+            'rgba(200,21,92,0.75)',
+            'rgba(220,90,130,0.65)',
+            'rgba(217,117,0,0.6)',
+            'rgba(217,117,0,0.6)',
+            'rgba(0,110,181,0.55)',
+            'rgba(70,170,200,0.45)'
           ],
           borderColor:[
-            '#ff006e','#ff5081','#ff8c5a','#ffb800','#00d4ff','#00b4c8'
+            '#c8155c','#dc5a82','#d97500','#d97500','#006eb5','#46aac8'
           ],
           borderWidth:1.5,
           borderRadius:6
@@ -2069,12 +2069,12 @@
         scales:{
           x:{
             beginAtZero:true,
-            ticks:{ color:'#b8c5e0', font:{size:11} },
-            grid:{ color:'rgba(255,255,255,0.04)' },
-            title:{ display:true, text:'吸附量 (μg/g)', color:'#7a8bb8', font:{size:11} }
+            ticks:{ color:'#3a4561', font:{size:11} },
+            grid:{ color:'rgba(13,16,36,0.06)' },
+            title:{ display:true, text:'吸附量 (μg/g)', color:'#6a7894', font:{size:11} }
           },
           y:{
-            ticks:{ color:'#eef3ff', font:{size:13, weight:700} },
+            ticks:{ color:'#0d1024', font:{size:13, weight:700} },
             grid:{ display:false }
           }
         }
@@ -2094,16 +2094,16 @@
           {
             label:'可口可樂',
             data:[4, 12, 22, 33, 44],
-            backgroundColor:'rgba(0,212,255,0.6)',
-            borderColor:'#00d4ff',
+            backgroundColor:'rgba(0,110,181,0.6)',
+            borderColor:'#006eb5',
             borderWidth:1.5,
             borderRadius:6,
           },
           {
             label:'舒味思',
             data:[6, 18, 31, 47, 62],
-            backgroundColor:'rgba(255,0,110,0.6)',
-            borderColor:'#ff006e',
+            backgroundColor:'rgba(200,21,92,0.6)',
+            borderColor:'#c8155c',
             borderWidth:1.5,
             borderRadius:6,
           }
@@ -2116,7 +2116,7 @@
           legend:{
             position:'top',
             labels:{
-              color:'#eef3ff',
+              color:'#0d1024',
               font:{family:"'Noto Sans TC'", size:13}
             }
           },
@@ -2128,15 +2128,15 @@
         },
         scales:{
           x:{
-            ticks:{ color:'#b8c5e0', font:{size:11} },
-            grid:{ color:'rgba(255,255,255,0.04)' },
-            title:{ display:true, text:'累積開瓶次數', color:'#7a8bb8', font:{size:11} }
+            ticks:{ color:'#3a4561', font:{size:11} },
+            grid:{ color:'rgba(13,16,36,0.06)' },
+            title:{ display:true, text:'累積開瓶次數', color:'#6a7894', font:{size:11} }
           },
           y:{
             beginAtZero:true,
-            ticks:{ color:'#b8c5e0', font:{size:11} },
-            grid:{ color:'rgba(255,255,255,0.04)' },
-            title:{ display:true, text:'微塑膠 顆/公升', color:'#7a8bb8', font:{size:11} }
+            ticks:{ color:'#3a4561', font:{size:11} },
+            grid:{ color:'rgba(13,16,36,0.06)' },
+            title:{ display:true, text:'微塑膠 顆/公升', color:'#6a7894', font:{size:11} }
           }
         }
       }
