@@ -1,0 +1,9 @@
+# 教師專用檔案——不公開
+儀表板.html
+qr.png
+start_dashboard.py
+開啟儀表板.bat
+
+# 憑證類，永遠不上傳
+firebase-admin.json
+*.serviceaccount.json
