@@ -1,2226 +1,1279 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>看不見的訪客 — 微塑膠 × 你的每一餐</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>看不見的訪客 — 微塑膠偵探社</title>
+<meta name="description" content="高中彈性學習課程（2 × 50 分鐘）：微塑膠 × 食品安全互動課程頁。討論→揭曉、攝入計算機、吸附排行榜、即時測驗。素材：Feng & Chen (2026) Food Research International 綜述論文。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-  html, body { font-size: 20px; }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
   :root{
-    --bg:#fafaf7; --bg-2:#f0f2f7; --bg-3:#e8ecf3;
-    --ink:#0d1024; --ink-2:#3a4561; --ink-3:#6a7894; --ink-4:#98a2b5;
-    --accent:#006eb5;
-    --accent-2:#c8155c;
-    --warn:#d97500;
-    --danger:#d22c4d;
-    --good:#2d9c5f;
-    --t1: clamp(2rem, 4.2vw, 3.4rem);
-    --t2: clamp(1.4rem, 2.8vw, 2.3rem);
-    --t3: clamp(1rem, 1.5vw, 1.25rem);
-    --t4: clamp(0.85rem, 1.1vw, 1.05rem);
-    --s1:80px; --s2:48px; --s3:24px; --s4:12px;
-    --card-bg: #ffffff;
-    --card-border: #e3e7ee;
+    --bg:#F5F9FB; --surface:#FFFFFF; --surface2:#EAF1F5; --ink:#1C2830; --muted:#5D707C;
+    --line:#D8E2E8;
+    --sea:#1E6FA8;  --pla:#C8336B;  --leaf:#2E8B57;
+    --sea-soft:#E1EDF6; --pla-soft:#F8E3EB; --leaf-soft:#E3F1E9;
+    --ok:#2E7D46; --bad:#B34040; --warn:#B07A1F; --code-bg:#EDF2F5;
+    --shadow:0 2px 14px rgba(20,40,60,.07);
   }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#101820; --surface:#1A2530; --surface2:#22303C; --ink:#E6EDF2; --muted:#93A6B3;
+      --line:#31414E;
+      --sea:#5CA8DC; --pla:#E4759B; --leaf:#63B888;
+      --sea-soft:#1B2E3E; --pla-soft:#3A2230; --leaf-soft:#1D3328;
+      --ok:#6FBF87; --bad:#E08080; --warn:#D9A64C; --code-bg:#151F28;
+      --shadow:0 2px 14px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#101820; --surface:#1A2530; --surface2:#22303C; --ink:#E6EDF2; --muted:#93A6B3;
+    --line:#31414E;
+    --sea:#5CA8DC; --pla:#E4759B; --leaf:#63B888;
+    --sea-soft:#1B2E3E; --pla-soft:#3A2230; --leaf-soft:#1D3328;
+    --ok:#6FBF87; --bad:#E08080; --warn:#D9A64C; --code-bg:#151F28;
+    --shadow:0 2px 14px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:4.5rem; font-size:16px}
+  html.projector{font-size:20px}  /* 投影模式：全站字級放大 25% */
+  section,.reveal-content,.lab{scroll-margin-top:4.5rem}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important;animation:none!important} }
   body{
-    font-family:'Noto Sans TC',sans-serif;
-    background:var(--bg);
-    color:var(--ink);
-    overflow:hidden;
-    height:100vh; width:100vw;
-    position:relative;
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;
+    font-size:1rem; line-height:1.75;
   }
-  body::before{
-    content:'';
-    position:fixed; inset:0;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(0,110,181,0.12), transparent 40%),
-      radial-gradient(circle at 85% 80%, rgba(200,21,92,0.10), transparent 45%),
-      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
-    z-index:-1;
-  }
+  h1,h2,h3{font-family:"Noto Serif TC","PMingLiU",serif; line-height:1.3; text-wrap:balance; margin:0 0 .5em}
+  h1{font-weight:900; font-size:clamp(2rem,5.5vw,3.4rem)}
+  h2{font-weight:900; font-size:clamp(1.5rem,3.4vw,2.1rem)}
+  h3{font-weight:700; font-size:1.15rem}
+  p{margin:.4em 0 1em}
+  a{color:var(--sea)}
+  code,pre,.mono{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace}
+  .num{font-variant-numeric:tabular-nums}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 20px}
+  .prose{max-width:42em}
 
-  /* Progress bar */
-  #progress{
-    position:fixed; top:0; left:0;
-    height:3px; width:0;
-    background:linear-gradient(90deg, var(--accent), var(--accent-2));
-    z-index:100;
-    transition: width .5s ease;
+  /* ---------- nav ---------- */
+  nav{position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex; align-items:center; gap:12px; padding:10px 20px; overflow-x:auto}
+  .brand{font-family:"Noto Serif TC",serif; font-weight:900; white-space:nowrap; font-size:1.05rem}
+  .brand .dot{color:var(--pla)}
+  nav a.link{color:var(--muted); text-decoration:none; font-size:.88rem; white-space:nowrap; padding:4px 8px; border-radius:6px}
+  nav a.link:hover,nav a.link:focus-visible{color:var(--ink); background:var(--surface2)}
+  .proj-btn{
+    margin-left:auto; white-space:nowrap; font-size:.8rem; font-weight:700;
+    padding:5px 14px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); color:var(--muted); cursor:pointer; font-family:inherit;
   }
-  /* Section tag */
-  #section-tag{
-    position:fixed; top:18px; left:24px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px; letter-spacing:2px;
-    color:var(--ink-3);
-    z-index:100;
-    text-transform:uppercase;
-  }
-  #section-tag::before{ content:'— '; color:var(--accent); }
-  #section-tag::after{ content:' —'; color:var(--accent); }
-  /* Page info */
-  #pageInfo{
-    position:fixed; bottom:18px; right:24px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--ink-3);
-    z-index:100;
-  }
-  #pageInfo b{ color:var(--accent); }
-  /* Hint */
-  #hint{
-    position:fixed; bottom:18px; left:24px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    color:var(--ink-4);
-    z-index:100;
-  }
+  .proj-btn:hover{color:var(--ink); background:var(--surface2)}
+  .proj-btn[aria-pressed="true"]{background:var(--sea); border-color:var(--sea); color:#fff}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--sea); outline-offset:2px}
 
-  /* Slides */
-  .slide{
-    position:absolute; inset:0;
-    display:flex; align-items:center; justify-content:center;
-    padding: 64px 80px 56px;
-    opacity:0; pointer-events:none;
-    transition:opacity .6s ease, transform .6s ease;
-    transform:translateY(20px);
-    overflow:hidden;
+  /* ---------- hero ---------- */
+  header.hero{padding:64px 0 40px; border-bottom:1px solid var(--line)}
+  .eyebrow{text-transform:uppercase; letter-spacing:.14em; font-size:.75rem; font-weight:700; color:var(--pla); margin-bottom:14px}
+  .hero-sub{color:var(--muted); max-width:38em; font-size:1.05rem}
+  .sea-t{color:var(--sea)} .pla-t{color:var(--pla)} .leaf-t{color:var(--leaf)}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 26px}
+  .chip{font-size:.8rem; padding:4px 12px; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--muted)}
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap}
+  .btn{
+    display:inline-block; padding:10px 22px; border-radius:8px; text-decoration:none;
+    font-weight:700; font-size:.95rem; border:1px solid transparent; cursor:pointer; font-family:inherit;
   }
-  .slide.active{
-    opacity:1; pointer-events:auto;
-    transform:translateY(0);
-  }
-  .slide-inner{
-    width:100%; max-width:1320px;
-  }
+  .btn.primary{background:var(--pla); color:#fff}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{border-color:var(--line); color:var(--ink); background:var(--surface)}
+  .btn.ghost:hover{background:var(--surface2)}
 
-  /* Typography */
-  .kicker{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px; letter-spacing:3px;
-    color:var(--accent);
-    text-transform:uppercase;
-    margin-bottom:14px;
+  /* ---------- sections ---------- */
+  section{padding:56px 0; border-bottom:1px solid var(--line)}
+  .unit-tag{
+    display:inline-flex; align-items:center; gap:8px; font-size:.78rem; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:10px;
   }
-  .slide-title{
-    font-size: var(--t1);
-    font-weight:900;
-    line-height:1.15;
-    margin-bottom:18px;
-    letter-spacing:-0.5px;
-  }
-  .slide-sub{
-    font-size: var(--t2);
-    font-weight:500;
-    color:var(--ink-2);
-    line-height:1.4;
-    margin-bottom:24px;
-  }
-  .body-text{
-    font-size: var(--t3);
-    color:var(--ink-2);
-    line-height:1.7;
-  }
-  .small-text{
-    font-size: var(--t4);
-    color:var(--ink-3);
-    line-height:1.6;
-  }
-  .accent{ color:var(--accent); }
-  .accent2{ color:var(--accent-2); }
-  .warn{ color:var(--warn); }
-  .num-big{
-    font-family:'JetBrains Mono',monospace;
-    font-weight:700;
-    line-height:1;
-  }
+  .unit-tag::before{content:""; width:26px; height:3px; background:var(--pla); border-radius:2px}
+  .grid{display:grid; gap:16px}
+  .grid.c2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+  .grid.c3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px 22px; box-shadow:var(--shadow)}
+  .card h3{margin-top:0}
+  .card .big{font-family:"Noto Serif TC",serif; font-weight:900; font-size:1.7rem; margin:0}
+  .card .cap{color:var(--muted); font-size:.86rem; margin:2px 0 0}
+  .tint-sea{background:var(--sea-soft)} .tint-pla{background:var(--pla-soft)} .tint-leaf{background:var(--leaf-soft)}
 
-  /* Cover */
-  .cover-bg{
-    position:absolute; inset:0;
-    overflow:hidden;
-    z-index:0;
-  }
-  .blob{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(60px);
-    opacity:0.45;
-    animation: float 14s ease-in-out infinite;
-  }
-  .blob.b1{ width:480px; height:480px; background:var(--accent); top:-120px; right:-80px; }
-  .blob.b2{ width:380px; height:380px; background:var(--accent-2); bottom:-100px; left:-60px; animation-delay:-4s; }
-  .blob.b3{ width:300px; height:300px; background:#7d3cff; top:30%; left:35%; animation-delay:-8s; opacity:0.12; }
-  @keyframes float{
-    0%,100%{ transform:translate(0,0) scale(1); }
-    50%{ transform:translate(40px,-30px) scale(1.08); }
-  }
-  .cover-content{ position:relative; z-index:2; text-align:center; }
-  .cover-meta{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px; letter-spacing:4px;
-    color:var(--accent);
-    text-transform:uppercase;
-    margin-bottom:32px;
-  }
-  .cover-title{
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    font-weight:900;
-    line-height:1.05;
-    letter-spacing:-2px;
-    background:linear-gradient(135deg, var(--ink) 0%, var(--accent) 55%, var(--accent-2) 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    margin-bottom:24px;
-  }
-  .cover-sub{
-    font-size: clamp(1.2rem, 2.4vw, 1.8rem);
-    color:var(--ink-2);
-    font-weight:500;
-    letter-spacing:4px;
-    margin-bottom:48px;
-  }
-  .cover-footer{
-    display:flex; gap:36px; justify-content:center;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--ink-3);
-    letter-spacing:2px;
-  }
-  .cover-footer span b{ color:var(--ink); font-weight:700; margin-right:6px; }
+  table{border-collapse:collapse; width:100%; font-size:.92rem}
+  th,td{padding:9px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top}
+  th{font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+  .table-scroll{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface)}
+  .table-scroll table{min-width:560px}
+  .table-scroll th,.table-scroll td{padding:10px 14px}
 
-  /* Grid layouts */
-  .grid-3{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:28px;
+  /* ---------- timeline ---------- */
+  .timeline{display:grid; gap:0; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface)}
+  .t-row{display:grid; grid-template-columns:92px 1fr; border-bottom:1px solid var(--line)}
+  .t-row:last-child{border-bottom:none}
+  .t-time{
+    padding:14px 16px; background:var(--surface2); font-weight:600; font-size:.85rem;
+    font-variant-numeric:tabular-nums; color:var(--muted); border-right:1px solid var(--line);
   }
-  .grid-2{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:48px;
-    align-items:center;
-  }
-  .grid-23{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    grid-template-rows:repeat(2,1fr);
-    gap:20px;
-  }
+  .t-body{padding:14px 18px}
+  .t-body b{display:block}
+  .t-body span{color:var(--muted); font-size:.9rem}
+  .block-label{font-family:"Noto Serif TC",serif; font-weight:900; font-size:1.05rem; margin:26px 0 10px}
+  .block-label small{font-family:"Noto Sans TC",sans-serif; font-weight:400; color:var(--muted); margin-left:8px}
 
-  /* Cards */
-  .card{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:18px;
-    padding:32px 28px;
-    backdrop-filter: blur(10px);
-    position:relative;
-    overflow:hidden;
+  /* ---------- 討論→揭曉 ---------- */
+  .reveal-gate{border:2px dashed var(--sea); border-radius:14px; background:var(--sea-soft); padding:20px 24px; margin:20px 0}
+  .reveal-gate h3{margin-top:0; font-family:"Noto Serif TC",serif}
+  .reveal-gate p{font-size:.96rem; margin-bottom:14px}
+  .btn.reveal{background:var(--sea); color:#fff; border:none}
+  .btn.reveal:hover{filter:brightness(1.1)}
+  .gate-actions{display:flex; gap:10px; flex-wrap:wrap}
+  .gate-done{margin:0; font-weight:700; color:var(--sea); font-size:.9rem}
+  .reveal-content[hidden]{display:none}
+  .unlock-btn{
+    font-size:.85rem; padding:7px 16px; border-radius:999px; border:1px dashed var(--sea);
+    background:transparent; color:var(--sea); cursor:pointer; font-family:inherit; font-weight:600;
   }
-  .card-num{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--accent);
-    letter-spacing:2px;
-    margin-bottom:12px;
-  }
-  .card-title{
-    font-size: 1.3rem;
-    font-weight:700;
-    margin-bottom:10px;
-    line-height:1.3;
-  }
-  .card-body{
-    font-size: 0.95rem;
-    color:var(--ink-2);
-    line-height:1.6;
-  }
-  .card-big{
-    font-family:'JetBrains Mono',monospace;
-    font-size: 2.6rem;
-    font-weight:700;
-    color:var(--accent);
-    line-height:1;
-    margin:8px 0 6px;
-  }
-  .card-unit{
-    font-size:0.85rem;
-    color:var(--ink-3);
-    margin-bottom:14px;
-  }
-  .card.accent2 .card-big{ color:var(--accent-2); }
-  .card.warn .card-big{ color:var(--warn); }
+  .unlock-btn:hover{background:var(--sea-soft)}
 
-  /* Guess buttons (Slide 2) */
-  .guess-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-    margin-top:32px;
-  }
-  .guess-btn{
-    background:var(--card-bg);
-    border:2px solid var(--card-border);
-    border-radius:16px;
-    padding:32px 16px;
-    color:var(--ink);
-    font-family:'JetBrains Mono',monospace;
-    font-size:1.8rem;
-    font-weight:700;
-    cursor:pointer;
-    transition:all .3s;
-    position:relative;
-  }
-  .guess-btn:hover{
-    border-color:var(--accent);
-    background:rgba(0,110,181,0.05);
-    transform:translateY(-4px);
-  }
-  .guess-btn.correct{
-    border-color:var(--good);
-    background:rgba(45,156,95,0.1);
-    color:var(--good);
-  }
-  .guess-btn.wrong{
-    border-color:var(--ink-4);
-    color:var(--ink-4);
-    background:transparent;
-  }
-  .guess-btn small{
-    display:block;
-    font-family:'Noto Sans TC',sans-serif;
-    font-size:0.75rem;
-    color:var(--ink-3);
-    margin-top:8px;
-    letter-spacing:0;
-  }
-  .guess-reveal{
-    margin-top:32px;
-    text-align:center;
-    opacity:0;
-    transition:opacity .5s;
-    font-size:1.1rem;
-    color:var(--ink-2);
-  }
-  .guess-reveal.show{ opacity:1; }
-  .guess-reveal b{ color:var(--good); font-size:1.4rem; }
-
-  /* Scale visualization (slide 4) */
-  .scale-row{
-    display:flex; align-items:flex-end;
-    gap:32px;
-    margin-top:32px;
-    padding:24px 0;
-  }
-  .scale-item{
-    flex:1;
-    text-align:center;
-  }
+  /* ---------- 尺度列 ---------- */
+  .scale-row{display:flex; align-items:flex-end; justify-content:space-around; gap:12px; flex-wrap:wrap; margin:26px 0 8px}
+  .scale-item{text-align:center; flex:1; min-width:110px}
   .scale-circle{
-    margin:0 auto 12px;
-    border-radius:50%;
-    background:linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-    display:flex; align-items:center; justify-content:center;
-    color:#fff;
-    font-family:'JetBrains Mono',monospace;
-    font-weight:700;
-    box-shadow: 0 0 24px rgba(0,110,181,0.3);
+    border-radius:50%; border:2px solid var(--sea); color:var(--sea); display:flex;
+    align-items:center; justify-content:center; margin:0 auto 10px; font-weight:700; font-family:"JetBrains Mono",monospace;
   }
-  .scale-label{
-    font-size:0.95rem;
-    color:var(--ink);
-    font-weight:700;
-    margin-bottom:4px;
+  .scale-item.hot .scale-circle{border-color:var(--pla); color:var(--pla)}
+  .scale-label{font-weight:700; font-size:.95rem}
+  .scale-size{color:var(--muted); font-size:.8rem}
+
+  /* ---------- 長條圖（CSS bars） ---------- */
+  .barchart{display:grid; gap:12px; margin:18px 0}
+  .bar-row{display:grid; grid-template-columns:150px 1fr 110px; gap:12px; align-items:center}
+  @media (max-width:560px){ .bar-row{grid-template-columns:110px 1fr 90px} }
+  .bar-name{font-weight:700; font-size:.9rem; text-align:right}
+  .bar-track{background:var(--surface2); border-radius:6px; height:26px; overflow:hidden; border:1px solid var(--line)}
+  .bar-fill{height:100%; border-radius:6px 0 0 6px; background:var(--sea); width:0; transition:width .9s ease}
+  .bar-fill.pla{background:var(--pla)}
+  .bar-fill.warn{background:var(--warn)}
+  .bar-val{font-family:"JetBrains Mono",monospace; font-size:.85rem; color:var(--muted)}
+
+  /* ---------- 投票（瓶裝水之謎） ---------- */
+  .guess-row{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); margin:16px 0}
+  .guess-btn{
+    padding:18px 14px; border-radius:12px; border:2px solid var(--line); background:var(--surface);
+    cursor:pointer; font-family:inherit; text-align:center; font-size:1rem; color:var(--ink);
   }
-  .scale-size{
-    font-size:0.78rem;
-    color:var(--ink-3);
-    font-family:'JetBrains Mono',monospace;
+  .guess-btn:hover{border-color:var(--sea); background:var(--sea-soft)}
+  .guess-btn b{display:block; font-size:1.2rem; font-family:"Noto Serif TC",serif}
+  .guess-btn small{color:var(--muted)}
+  .guess-btn[disabled]{opacity:.55; cursor:default}
+  .guess-btn.chosen{border-color:var(--pla); background:var(--pla-soft); opacity:1}
+
+  /* ---------- 實驗室 ---------- */
+  .lab{border:1px solid var(--line); border-radius:16px; background:var(--surface); box-shadow:var(--shadow); overflow:hidden}
+  .lab-head{padding:20px 24px; border-bottom:1px solid var(--line); background:var(--surface2)}
+  .lab-head h3{margin:0; font-size:1.25rem}
+  .lab-head p{margin:4px 0 0; color:var(--muted); font-size:.92rem}
+  .lab-body{display:grid; grid-template-columns:1fr 1fr; gap:0}
+  @media (max-width:760px){ .lab-body{grid-template-columns:1fr} }
+  .lab-left{padding:22px 24px; border-right:1px solid var(--line)}
+  @media (max-width:760px){ .lab-left{border-right:none; border-bottom:1px solid var(--line)} }
+  .lab-right{padding:22px 24px}
+  .slider-row{margin-bottom:16px}
+  .slider-row label{display:flex; justify-content:space-between; font-weight:600; font-size:.95rem; margin-bottom:2px}
+  .slider-row .pct{font-variant-numeric:tabular-nums; color:var(--muted); font-weight:500}
+  .slider-row .contrib{font-size:.78rem; color:var(--muted); text-align:right; margin-top:-2px}
+  input[type=range]{width:100%; accent-color:var(--sea); height:28px}
+  .s-pla input{accent-color:var(--pla)} .s-leaf input{accent-color:var(--leaf)} .s-warn input{accent-color:#B07A1F}
+  .bomb-row{
+    display:flex; gap:10px; align-items:flex-start; padding:10px 12px; margin-bottom:10px;
+    border:1px dashed var(--pla); border-radius:10px; background:var(--pla-soft); font-size:.9rem;
+  }
+  .bomb-row input{margin-top:5px; accent-color:var(--pla); width:auto; height:auto}
+  .readout{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px}
+  .stat{border:1px solid var(--line); border-radius:10px; padding:10px 14px; background:var(--bg)}
+  .stat .v{font-family:"JetBrains Mono",monospace; font-weight:600; font-size:1.25rem}
+  .stat .l{font-size:.78rem; color:var(--muted)}
+  .stat .u{font-size:.78rem; color:var(--muted)}
+  .verdict{
+    margin-top:14px; padding:12px 16px; border-radius:10px; font-weight:600; font-size:.95rem;
+    background:var(--surface2); border:1px dashed var(--line);
+  }
+  .verdict.win{border-color:var(--ok); color:var(--ok); border-style:solid}
+  .verdict.boom{border-color:var(--pla); color:var(--pla); border-style:solid}
+  .preset-row{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+  .preset{
+    font-size:.8rem; padding:5px 12px; border-radius:999px; border:1px solid var(--line);
+    background:var(--surface); cursor:pointer; color:var(--ink); font-family:inherit;
+  }
+  .preset:hover{background:var(--surface2)}
+
+  /* ---------- 排行榜遊戲 ---------- */
+  .rank-pool{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); margin:14px 0}
+  .rank-card{
+    position:relative; padding:14px 12px; border-radius:12px; border:2px solid var(--line);
+    background:var(--surface); cursor:pointer; font-family:inherit; text-align:center; color:var(--ink);
+  }
+  .rank-card:hover{border-color:var(--sea)}
+  .rank-card b{display:block; font-size:1.05rem}
+  .rank-card small{color:var(--muted); font-size:.78rem}
+  .rank-card[disabled]{cursor:default; border-color:var(--sea); background:var(--sea-soft)}
+  .rank-badge{
+    position:absolute; top:-10px; right:-8px; width:26px; height:26px; border-radius:50%;
+    background:var(--sea); color:#fff; font-weight:700; font-size:.85rem;
+    display:flex; align-items:center; justify-content:center; font-family:"JetBrains Mono",monospace;
   }
 
-  /* Source diagram */
-  .source-diagram{
-    position:relative;
-    width:100%;
-    height: 460px;
-    margin-top: 24px;
+  /* ---------- 分頁 / 程式 ---------- */
+  .tabs{display:flex; gap:6px; margin-bottom:-1px; flex-wrap:wrap}
+  .tab{
+    padding:9px 20px; border:1px solid var(--line); border-bottom:none; border-radius:10px 10px 0 0;
+    background:var(--surface2); cursor:pointer; font-weight:600; font-size:.92rem; color:var(--muted); font-family:inherit;
   }
-  .src-center{
-    position:absolute;
-    left:50%; top:50%;
-    transform:translate(-50%,-50%);
-    background:linear-gradient(135deg, var(--accent), var(--accent-2));
-    color:#fff;
-    width:140px; height:140px;
-    border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-weight:900;
-    font-size:1.1rem;
-    text-align:center;
-    box-shadow: 0 0 40px rgba(0,110,181,0.4);
-    z-index:3;
+  .tab[aria-selected="true"]{background:var(--surface); color:var(--ink)}
+  .tabpanel{border:1px solid var(--line); border-radius:0 12px 12px 12px; background:var(--surface); padding:22px 24px}
+  pre{
+    background:var(--code-bg); border:1px solid var(--line); border-radius:10px;
+    padding:16px 18px; overflow-x:auto; font-size:.83rem; line-height:1.65; position:relative;
   }
-  .src-node{
-    position:absolute;
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:16px;
-    padding:18px 22px;
-    backdrop-filter: blur(10px);
-    z-index:2;
-    width:200px;
+  .copy-wrap{position:relative}
+  .copy-btn{
+    position:absolute; top:10px; right:10px; font-size:.75rem; padding:4px 10px;
+    border-radius:6px; border:1px solid var(--line); background:var(--surface);
+    cursor:pointer; color:var(--muted); font-family:inherit;
   }
-  .src-node .src-label{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    color:var(--accent);
-    letter-spacing:2px;
-    margin-bottom:6px;
-  }
-  .src-node .src-name{
-    font-size:1.1rem;
-    font-weight:700;
-    margin-bottom:6px;
-  }
-  .src-node .src-desc{
-    font-size:0.82rem;
-    color:var(--ink-3);
-    line-height:1.4;
-  }
-  .src-n1{ top:0; left:8%; }
-  .src-n2{ top:0; right:8%; }
-  .src-n3{ bottom:0; left:8%; }
-  .src-n4{ bottom:0; right:8%; }
-  .source-diagram svg{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    z-index:1;
-    pointer-events:none;
-  }
+  .copy-btn:hover{color:var(--ink)}
+  .kbd-steps li{margin-bottom:8px}
 
-  /* Chart container */
-  .chart-wrap{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:16px;
-    padding:24px;
-    height: 380px;
-    position:relative;
-  }
-
-  /* Stat highlight */
-  .stat-mega{
-    text-align:center;
-    padding:20px 0;
-  }
-  .stat-mega .stat-num{
-    font-family:'JetBrains Mono',monospace;
-    font-size: clamp(4rem, 10vw, 8rem);
-    font-weight:700;
-    line-height:1;
-    background:linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .stat-mega .stat-unit{
-    font-size:1.2rem;
-    color:var(--ink-2);
-    margin-top:14px;
-    letter-spacing:2px;
-  }
-
-  /* Dot matrix for 99% */
-  .dot-matrix{
-    display:grid;
-    grid-template-columns:repeat(20,1fr);
-    gap:4px;
-    max-width:520px;
-    margin:0 auto;
-  }
-  .dot{
-    width:100%;
-    aspect-ratio:1/1;
-    border-radius:50%;
-    background:var(--ink-4);
-  }
-  .dot.filled{
-    background:linear-gradient(135deg, var(--accent-2), #ff5599);
-    box-shadow: 0 0 6px rgba(200,21,92,0.5);
-  }
-
-  /* Table */
-  table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
-  }
-  thead th{
-    text-align:left;
-    padding:14px 12px;
-    font-size:0.8rem;
-    color:var(--ink-3);
-    font-family:'JetBrains Mono',monospace;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    border-bottom:2px solid var(--card-border);
-    cursor:pointer;
-    user-select:none;
-    transition:color .2s;
-  }
-  thead th:hover{ color:var(--accent); }
-  thead th::after{
-    content:' ↕';
-    opacity:0.4;
-    font-size:0.7rem;
-  }
-  thead th.sort-asc::after{ content:' ↑'; opacity:1; color:var(--accent); }
-  thead th.sort-desc::after{ content:' ↓'; opacity:1; color:var(--accent); }
-  tbody td{
-    padding:14px 12px;
-    border-bottom:1px solid var(--card-border);
-    font-size:0.95rem;
-  }
-  tbody td:nth-child(1){
-    font-weight:700;
-    color:var(--ink);
-  }
-  tbody td.num{
-    font-family:'JetBrains Mono',monospace;
-    color:var(--accent);
-    font-weight:700;
-  }
-
-  /* Decision tree */
-  .dtree{
-    position:relative;
-    width:100%;
-    height: 460px;
-    margin-top: 20px;
-  }
-  .dtree-q{
-    position:absolute;
-    left:50%; top:14%;
-    transform:translateX(-50%);
-    background:linear-gradient(135deg, var(--accent), var(--accent-2));
-    color:#fff;
-    padding:18px 30px;
-    border-radius:50px;
-    font-weight:700;
-    font-size:1.15rem;
-    box-shadow: 0 0 36px rgba(0,110,181,0.3);
-    z-index:3;
-    white-space:nowrap;
-  }
-  .dtree-leaf{
-    position:absolute;
-    bottom:0;
-    width:24%;
-    background:var(--card-bg);
-    border:2px solid var(--card-border);
-    border-radius:16px;
-    padding:20px;
-    backdrop-filter: blur(10px);
-    z-index:2;
-  }
-  .dtree-leaf.l1{ left:6%; border-color:rgba(0,110,181,0.4); }
-  .dtree-leaf.l2{ left:38%; border-color:rgba(217,117,0,0.4); }
-  .dtree-leaf.l3{ right:6%; border-color:rgba(45,156,95,0.4); }
-  .dtree-leaf .leaf-when{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    letter-spacing:2px;
-    margin-bottom:6px;
-    text-transform:uppercase;
-  }
-  .dtree-leaf.l1 .leaf-when{ color:var(--accent); }
-  .dtree-leaf.l2 .leaf-when{ color:var(--warn); }
-  .dtree-leaf.l3 .leaf-when{ color:var(--good); }
-  .dtree-leaf .leaf-title{
-    font-size:1.05rem;
-    font-weight:700;
-    margin-bottom:8px;
-  }
-  .dtree-leaf .leaf-body{
-    font-size:0.8rem;
-    color:var(--ink-2);
-    line-height:1.5;
-  }
-  .dtree svg{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    z-index:1;
-    pointer-events:none;
-  }
-
-  /* Responsibility circle */
-  .resp-wrap{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-top:20px;
-    height:440px;
-    position:relative;
-  }
-  .resp-ring{
-    position:relative;
-    width: 440px; height:440px;
-    border-radius:50%;
-    background:
-      conic-gradient(
-        from 0deg,
-        rgba(0,110,181,0.15) 0deg 90deg,
-        rgba(200,21,92,0.15) 90deg 180deg,
-        rgba(217,117,0,0.15) 180deg 270deg,
-        rgba(45,156,95,0.15) 270deg 360deg
-      );
-    border:1px solid var(--card-border);
-  }
-  .resp-ring::before{
-    content:'';
-    position:absolute;
-    inset: 80px;
-    border-radius:50%;
-    background:var(--bg);
-    border:1px solid var(--card-border);
-  }
-  .resp-center{
-    position:absolute;
-    left:50%; top:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-    z-index:2;
-  }
-  .resp-center .rc-num{
-    font-family:'JetBrains Mono',monospace;
-    font-size:2.8rem;
-    font-weight:700;
-    color:var(--accent);
-    line-height:1;
-  }
-  .resp-center .rc-label{
-    font-size:0.85rem;
-    color:var(--ink-3);
-    margin-top:6px;
-    letter-spacing:2px;
-  }
-  .resp-q{
-    position:absolute;
-    width:130px;
-    text-align:center;
-    padding:14px;
-  }
-  .resp-q .q-icon{
-    width:48px; height:48px;
-    border-radius:50%;
-    margin:0 auto 8px;
-    display:flex; align-items:center; justify-content:center;
-    font-size:1.3rem;
-    font-weight:900;
-    color:#fff;
-  }
-  .resp-q .q-title{
-    font-size:0.95rem;
-    font-weight:700;
-    margin-bottom:4px;
-  }
-  .resp-q .q-body{
-    font-size:0.75rem;
-    color:var(--ink-3);
-    line-height:1.4;
-  }
-  .resp-q.q1{ top:6%; right:10%; }
-  .resp-q.q1 .q-icon{ background:var(--accent); }
-  .resp-q.q2{ bottom:6%; right:10%; }
-  .resp-q.q2 .q-icon{ background:var(--accent-2); }
-  .resp-q.q3{ bottom:6%; left:10%; }
-  .resp-q.q3 .q-icon{ background:var(--warn); }
-  .resp-q.q4{ top:6%; left:10%; }
-  .resp-q.q4 .q-icon{ background:var(--good); color:#fafaf7; }
-
-  /* CTA / checklist (slide 17) */
-  .check-list{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px 28px;
-    margin-top:20px;
-  }
+  /* ---------- 行動清單 ---------- */
+  .check-grid{display:grid; gap:10px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin:16px 0}
   .check-item{
-    display:flex; align-items:center;
-    gap:14px;
-    padding:14px 18px;
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:12px;
-    cursor:pointer;
-    transition:all .2s;
+    display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border-radius:12px;
+    border:1px solid var(--line); background:var(--surface); cursor:pointer;
   }
-  .check-item:hover{ border-color:var(--accent); }
-  .check-box{
-    width:24px; height:24px;
-    border:2px solid var(--ink-4);
-    border-radius:6px;
-    flex-shrink:0;
-    transition:all .2s;
-    display:flex; align-items:center; justify-content:center;
-    color:transparent;
-    font-weight:900;
+  .check-item:hover{background:var(--surface2)}
+  .check-item .box{
+    flex-shrink:0; width:22px; height:22px; border-radius:6px; border:2px solid var(--muted);
+    display:flex; align-items:center; justify-content:center; color:#fff; font-size:.85rem; margin-top:2px;
   }
-  .check-item.checked .check-box{
-    border-color:var(--good);
-    background:var(--good);
-    color:var(--bg);
-  }
-  .check-item.checked .check-text{
-    color:var(--good);
-  }
-  .check-item.checked .check-box::after{ content:'✓'; }
-  .check-text{
-    font-size:1rem;
-    color:var(--ink);
-    transition:color .2s;
-  }
-  .reflect-box{
-    margin-top:28px;
-    padding:24px 28px;
-    background: linear-gradient(135deg, rgba(0,110,181,0.08), rgba(200,21,92,0.06));
-    border:1px solid var(--card-border);
-    border-radius:14px;
-  }
-  .reflect-q{
-    font-size:1rem;
-    color:var(--ink);
-    margin-bottom:10px;
-    padding-left:24px;
-    position:relative;
-  }
-  .reflect-q::before{
-    content:'?';
-    position:absolute; left:0;
-    color:var(--accent);
-    font-family:'JetBrains Mono',monospace;
-    font-weight:700;
-  }
+  .check-item.done{border-color:var(--ok)}
+  .check-item.done .box{background:var(--ok); border-color:var(--ok)}
+  .check-item.done .box::after{content:"✓"}
+  .check-item b{display:block}
+  .check-item span{color:var(--muted); font-size:.86rem}
 
-  /* Mouse visualization (slide 10) */
-  .mouse-exp{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:32px;
-    margin-top:24px;
+  /* ---------- 測驗 ---------- */
+  .q{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin-bottom:14px}
+  .q h3{font-family:"Noto Sans TC",sans-serif; font-size:1rem; font-weight:700; margin:0 0 10px}
+  .q .qnum{color:var(--pla); font-family:"JetBrains Mono",monospace; margin-right:8px}
+  .opts{display:grid; gap:6px}
+  .opts label{
+    display:flex; gap:10px; align-items:flex-start; padding:8px 12px; border-radius:8px;
+    border:1px solid transparent; cursor:pointer; font-size:.95rem;
   }
-  .mouse-stage{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:16px;
-    padding:24px;
+  .opts label:hover{background:var(--surface2)}
+  .opts input{margin-top:5px; accent-color:var(--sea)}
+  .q.graded label.correct{border-color:var(--ok); background:var(--leaf-soft)}
+  .q.graded label.wrong{border-color:var(--bad); background:var(--pla-soft)}
+  .expl{display:none; margin-top:10px; font-size:.88rem; color:var(--muted); border-top:1px dashed var(--line); padding-top:10px}
+  .q.graded .expl{display:block}
+  #quiz-result{
+    display:none; margin-top:20px; padding:22px 26px; border-radius:12px; text-align:center;
+    background:var(--surface); border:2px solid var(--sea);
   }
-  .mouse-stage .stage-week{
-    font-family:'JetBrains Mono',monospace;
-    color:var(--accent);
-    font-size:0.85rem;
-    letter-spacing:2px;
-    margin-bottom:12px;
+  #quiz-result .score{font-family:"Noto Serif TC",serif; font-weight:900; font-size:2.6rem}
+  #quiz-result .msg{color:var(--muted)}
+  #score-upload{display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap; margin-top:16px}
+  #seat-input{
+    padding:9px 14px; border-radius:8px; border:1px solid var(--line); background:var(--bg);
+    color:var(--ink); font-family:inherit; font-size:.95rem; width:190px;
   }
-  .mouse-stage h4{
-    font-size:1.1rem;
-    margin-bottom:14px;
-  }
-  .mouse-stage ul{
-    list-style:none;
-  }
-  .mouse-stage li{
-    font-size:0.92rem;
-    color:var(--ink-2);
-    padding:6px 0 6px 20px;
-    position:relative;
-  }
-  .mouse-stage li::before{
-    content:'▸';
-    position:absolute; left:0;
-    color:var(--accent);
-  }
-  .mouse-stage.after li::before{ color:var(--danger); }
+  #score-status{width:100%; font-size:.85rem; color:var(--muted)}
 
-  /* Beverage chart visual fallback */
-  .bev-bars{
-    display:flex; align-items:flex-end;
-    gap:28px;
-    height:240px;
-    margin-top:24px;
-    padding:0 12px;
-  }
-  .bev-bar{
-    flex:1;
-    background:linear-gradient(180deg, var(--accent), var(--accent-2));
-    border-radius:8px 8px 0 0;
-    position:relative;
-    min-height:24px;
-    transition: height 1s ease;
-  }
-  .bev-bar .bar-val{
-    position:absolute;
-    top:-30px; left:0; right:0;
-    text-align:center;
-    font-family:'JetBrains Mono',monospace;
-    font-weight:700;
-    font-size:0.95rem;
-    color:var(--accent);
-  }
-  .bev-bar .bar-lab{
-    position:absolute;
-    bottom:-32px; left:0; right:0;
-    text-align:center;
-    font-size:0.8rem;
-    color:var(--ink-3);
-  }
-
-  /* Tea bag visual */
-  .tea-stage{
-    text-align:center;
-    padding:20px 0;
-  }
-  .tea-num{
-    font-family:'JetBrains Mono',monospace;
-    font-size: clamp(4rem, 10vw, 7rem);
-    font-weight:700;
-    background:linear-gradient(135deg, var(--warn), var(--accent-2));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-    line-height:1;
-  }
-
-  /* EU stats */
-  .eu-stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-    margin-top:24px;
-  }
-  .eu-stat{
-    text-align:center;
-    padding:28px 20px;
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:18px;
-  }
-  .eu-stat .es-num{
-    font-family:'JetBrains Mono',monospace;
-    font-size:3.5rem;
-    font-weight:700;
-    color:var(--accent);
-    line-height:1;
-  }
-  .eu-stat:nth-child(2) .es-num{ color:var(--warn); }
-  .eu-stat:nth-child(3) .es-num{ color:var(--accent-2); }
-  .eu-stat .es-desc{
-    font-size:0.95rem;
-    color:var(--ink-2);
-    margin-top:12px;
-    line-height:1.5;
-  }
-  .eu-stat .es-delta{
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.8rem;
-    color:var(--ink-3);
-    margin-top:8px;
-  }
-
-  /* Anthocyanin */
-  .berry-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-    margin-top:24px;
-  }
-  .berry{
-    text-align:center;
-    padding:24px 14px;
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:14px;
-  }
-  .berry .b-emoji{
-    font-size:2.4rem;
-    margin-bottom:8px;
-  }
-  .berry .b-name{
-    font-size:1rem;
-    font-weight:700;
-    margin-bottom:6px;
-  }
-  .berry .b-val{
-    font-family:'JetBrains Mono',monospace;
-    color:var(--accent-2);
-    font-size:0.95rem;
-    font-weight:700;
-  }
-  .berry .b-unit{
-    font-size:0.75rem;
-    color:var(--ink-3);
-  }
-
-  /* Action 2x3 cards */
-  .action-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    grid-template-rows:repeat(2,1fr);
-    gap:18px;
-    margin-top:20px;
-  }
-  .action-card{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:14px;
-    padding:20px;
-    position:relative;
-  }
-  .action-card .ac-num{
-    position:absolute;
-    top:14px; right:18px;
-    font-family:'JetBrains Mono',monospace;
-    color:var(--ink-4);
-    font-weight:700;
-    font-size:1.6rem;
-  }
-  .action-card .ac-title{
-    font-size:1.05rem;
-    font-weight:700;
-    margin-bottom:8px;
-    padding-right:36px;
-  }
-  .action-card .ac-body{
-    font-size:0.82rem;
-    color:var(--ink-3);
-    line-height:1.5;
-  }
-
-  /* Final slide */
-  .final-grid{
-    display:grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap:40px;
-    align-items:start;
-  }
-
-  /* Source citation */
-  .citation{
-    margin-top:18px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    color:var(--ink-4);
-    letter-spacing:1px;
-  }
-  .citation b{ color:var(--ink-3); }
-
-  /* Animations */
-  @keyframes pulse{
-    0%,100%{ transform:scale(1); opacity:0.6; }
-    50%{ transform:scale(1.05); opacity:1; }
-  }
-  .pulse{ animation: pulse 2.5s ease-in-out infinite; }
-
-  /* High contrast tag */
-  .tag{
-    display:inline-block;
-    padding:4px 10px;
-    border-radius:6px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.7rem;
-    letter-spacing:1px;
-    background:rgba(0,110,181,0.12);
-    color:var(--accent);
-    margin-right:6px;
-  }
-  .tag.warn{ background:rgba(217,117,0,0.12); color:var(--warn); }
-  .tag.danger{ background:rgba(210,44,77,0.12); color:var(--danger); }
-  .tag.academic{
-    background:linear-gradient(90deg, rgba(125,60,255,0.18), rgba(200,21,92,0.12));
-    color:#7c3aed;
-  }
-
-  /* Academic kicker style */
-  .kicker.academic{
-    color:#7c3aed;
-  }
-
-  /* Carrier diagram (Slide 13 new) */
-  .carrier-wrap{
-    position:relative;
-    width:100%;
-    height:380px;
-  }
-  .carrier-wrap svg{ position:absolute; inset:0; width:100%; height:100%; }
-  .carrier-center{
-    position:absolute;
-    left:50%; top:50%;
-    transform:translate(-50%,-50%);
-    width:140px; height:140px;
-    border-radius:50%;
-    background:linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-    color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    font-weight:900;
-    font-size:1.05rem;
-    text-align:center;
-    box-shadow: 0 0 40px rgba(0,110,181,0.4);
-    z-index:3;
-  }
-  .carrier-sat{
-    position:absolute;
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:50%;
-    width:96px; height:96px;
-    display:flex; align-items:center; justify-content:center;
-    text-align:center;
-    font-size:0.78rem;
-    font-weight:700;
-    color:var(--ink);
-    backdrop-filter:blur(8px);
-    z-index:2;
-    line-height:1.2;
-  }
-  .carrier-sat small{
-    display:block;
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.65rem;
-    color:var(--accent);
-    margin-top:2px;
-    font-weight:400;
-  }
-
-  /* Tech cards (Slide 17 new) */
-  .tech-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-top:16px;
-  }
-  .tech-card{
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:14px;
-    padding:18px;
-  }
-  .tech-card .tc-label{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    letter-spacing:2px;
-    color:#7c3aed;
-    margin-bottom:8px;
-  }
-  .tech-card .tc-title{
-    font-size:1rem;
-    font-weight:700;
-    margin-bottom:8px;
-  }
-  .tech-card .tc-eff{
-    font-family:'JetBrains Mono',monospace;
-    font-size:1.7rem;
-    font-weight:700;
-    color:var(--good);
-    line-height:1;
-    margin:8px 0;
-  }
-  .tech-card .tc-body{
-    font-size:0.78rem;
-    color:var(--ink-3);
-    line-height:1.5;
-  }
-
-  /* Gap cards */
-  .gap-list{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px 18px;
-    margin-top:14px;
-  }
-  .gap-item{
-    padding:12px 14px;
-    background:rgba(217,117,0,0.05);
-    border-left:3px solid var(--warn);
-    border-radius:0 8px 8px 0;
-  }
-  .gap-item .gap-no{
-    font-family:'JetBrains Mono',monospace;
-    color:var(--warn);
-    font-size:0.7rem;
-    letter-spacing:2px;
-    margin-bottom:2px;
-  }
-  .gap-item .gap-txt{
-    font-size:0.85rem;
-    color:var(--ink-2);
-    line-height:1.4;
-  }
-
-  /* Brain crisis mega numbers */
-  .brain-mega{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-    margin-top:16px;
-  }
-  .brain-num{
-    text-align:center;
-    background:var(--card-bg);
-    border:1px solid var(--card-border);
-    border-radius:18px;
-    padding:24px 16px;
-  }
-  .brain-num .bn-val{
-    font-family:'JetBrains Mono',monospace;
-    font-size: clamp(3rem, 6vw, 4.6rem);
-    font-weight:700;
-    line-height:1;
-    background:linear-gradient(135deg, var(--accent-2), var(--warn));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  .brain-num .bn-lab{
-    font-size:0.95rem;
-    color:var(--ink-2);
-    margin-top:14px;
-    line-height:1.4;
-  }
-  .brain-num .bn-src{
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.7rem;
-    color:var(--ink-4);
-    margin-top:8px;
-    letter-spacing:1px;
-  }
-
-  /* Mechanism dots */
-  .mech-list{
-    list-style:none;
-    margin-top:12px;
-  }
-  .mech-list li{
-    display:flex;
-    gap:10px;
-    align-items:flex-start;
-    padding:8px 0;
-    font-size:0.9rem;
-    color:var(--ink-2);
-  }
-  .mech-list li .mech-dot{
-    width:24px; height:24px;
-    border-radius:50%;
-    background:rgba(200,21,92,0.15);
-    color:var(--accent-2);
-    font-family:'JetBrains Mono',monospace;
-    font-weight:700;
-    font-size:0.7rem;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-    margin-top:1px;
-  }
+  footer{padding:40px 0 60px; color:var(--muted); font-size:.85rem}
+  footer .wrap{max-width:1040px}
+  .footnote{border-left:3px solid var(--line); padding-left:14px; margin-top:10px}
 </style>
 </head>
 <body>
 
-<div id="progress"></div>
-<div id="section-tag">引起動機</div>
-<div id="pageInfo"><b>01</b> / 23</div>
-<div id="hint">← → 切頁　F 全螢幕　Space 下一頁</div>
-
-<!-- ========== SLIDE 1: COVER ========== -->
-<section class="slide active" data-slide="1" data-section="引起動機">
-  <div class="cover-bg">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
+<nav aria-label="課程導覽">
+  <div class="wrap">
+    <span class="brand">微塑膠<span class="dot">．</span>偵探社</span>
+    <a class="link" href="#map">課程地圖</a>
+    <a class="link" href="#u1">有多小</a>
+    <a class="link" href="#u2">瓶裝水之謎</a>
+    <a class="link" href="#labA">攝入計算機</a>
+    <a class="link" href="#u3">污染計程車</a>
+    <a class="link" href="#labB">吸附排行榜</a>
+    <a class="link" href="#u4">科學方法</a>
+    <a class="link" href="#u5">大腦與真相</a>
+    <a class="link" href="#action">行動</a>
+    <a class="link" href="#code">程式角落</a>
+    <a class="link" href="#quiz">結業測驗</a>
+    <a class="link" href="#glossary">名詞解釋</a>
+    <button class="proj-btn" id="projBtn" type="button" aria-pressed="false" title="放大字級並強制淺色，適合投影機">🖥 投影模式</button>
   </div>
-  <div class="slide-inner cover-content">
-    <div class="cover-meta">FOOD SAFETY × MICROPLASTICS</div>
-    <h1 class="cover-title">看不見的訪客</h1>
-    <div class="cover-sub">微塑膠 × 你的每一餐</div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">高中彈性學習課程 · 食品安全 × 科學素養</div>
+    <h1>看不見的訪客<br><span class="sea-t">微塑膠</span>正在<span class="pla-t">搭便車</span>進入<span class="leaf-t">你的每一餐</span></h1>
+    <p class="hero-sub">
+      2026 年，中國大連工業大學的食品科學家發表了一篇綜述論文，提出一個令人不安的觀點：
+      微塑膠不只是塑膠——它是一輛<b>「污染計程車」</b>，載著重金屬、抗生素、細菌，沿著食物鏈開進你的身體。
+      今天，你是微塑膠偵探社的一日探員，任務：查清這位看不見的訪客。
+    </p>
+    <div class="chips">
+      <span class="chip">⏱ 2 小時（2 × 50 分鐘）</span>
+      <span class="chip">🎯 對象：高中生</span>
+      <span class="chip">🧪 素材：Feng &amp; Chen (2026) <i>Food Research International</i> 綜述論文</span>
+      <span class="chip">💻 手機／平板／電腦皆可</span>
+    </div>
+    <div class="cta-row">
+      <a class="btn primary" href="#map">開始上課</a>
+      <a class="btn ghost" href="#labA">直接玩攝入計算機 →</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 課程地圖 ================= -->
+<section id="map">
+  <div class="wrap">
+    <div class="unit-tag">課程地圖</div>
+    <h2>兩節課，從「聽說過微塑膠」到「看懂科學證據」</h2>
+    <p class="prose">每節 50 分鐘，中間下課 10 分鐘。所有活動都在這一頁完成，測驗會即時計分。</p>
+
+    <div class="block-label">第一節<small>看不見的訪客（50 分鐘）</small></div>
+    <div class="timeline">
+      <div class="t-row"><div class="t-time num">00–05</div><div class="t-body"><b>開場快問快答</b><span>你每年吃進多少顆塑膠？先猜再揭曉（提示：約等於每天嚼一塊樂高）</span></div></div>
+      <div class="t-row"><div class="t-time num">05–15</div><div class="t-body"><b>單元 1｜這位訪客有多小？</b><span>先討論「多小才算微塑膠」→ 揭曉定義與尺度比較（比紅血球還小！）</span></div></div>
+      <div class="t-row"><div class="t-time num">15–25</div><div class="t-body"><b>單元 2｜瓶裝水之謎</b><span>全班投票：玻璃瓶 vs 塑膠瓶誰比較「乾淨」→ 揭曉反直覺答案</span></div></div>
+      <div class="t-row"><div class="t-time num">25–40</div><div class="t-body"><b>實驗室 A｜攝入計算機</b><span>輸入你今天真實的飲食，估算吃進幾顆微塑膠——小心兩顆「地雷」</span></div></div>
+      <div class="t-row"><div class="t-time num">40–50</div><div class="t-body"><b>快問快答</b><span>口頭複習：哪個容器最意外？哪個行為是頭號地雷？</span></div></div>
+    </div>
+
+    <div class="block-label">第二節<small>從機制到行動（50 分鐘）</small></div>
+    <div class="timeline">
+      <div class="t-row"><div class="t-time num">00–10</div><div class="t-body"><b>單元 3｜污染計程車</b><span>先討論「一顆塑膠為什麼不只是一顆塑膠」→ 揭曉共污染機制</span></div></div>
+      <div class="t-row"><div class="t-time num">10–20</div><div class="t-body"><b>實驗室 B｜吸附力排行榜</b><span>五種塑膠，猜猜誰最會「載客」——按你預測的順序點下去</span></div></div>
+      <div class="t-row"><div class="t-time num">20–30</div><div class="t-body"><b>單元 4｜科學家怎麼看見看不見的東西</b><span>光譜「指紋辨識」＋為什麼不同研究的數字差 100 倍</span></div></div>
+      <div class="t-row"><div class="t-time num">30–38</div><div class="t-body"><b>單元 5｜大腦與真相</b><span>從馬里亞納海溝到人腦 → 投票：該不該現在就立法管制？</span></div></div>
+      <div class="t-row"><div class="t-time num">38–45</div><div class="t-body"><b>行動清單＋程式角落</b><span>挑一項本週減塑行動；有興趣的同學用 Excel / Python / R 算年攝入量</span></div></div>
+      <div class="t-row"><div class="t-time num">45–50</div><div class="t-body"><b>結業測驗</b><span>10 題即時計分，60 分及格、90 分獲頒「首席微塑膠偵探」</span></div></div>
+    </div>
   </div>
 </section>
 
-<!-- ========== SLIDE 2: BIG QUESTION ========== -->
-<section class="slide" data-slide="2" data-section="引起動機">
-  <div class="slide-inner">
-    <div class="kicker">QUESTION 01 ／ 你的猜測</div>
-    <h2 class="slide-title">你每年吃下<span class="accent">多少塑膠</span>？</h2>
-    <p class="body-text">猜猜看：一個普通人，每年從食物、飲水、空氣中攝入的<b style="color:var(--ink)">塑膠微粒</b>大約有幾顆？</p>
+<!-- ================= 單元1 ================= -->
+<section id="u1">
+  <div class="wrap">
+    <div class="unit-tag">單元 1</div>
+    <h2>這位訪客有多小？</h2>
 
-    <div class="guess-grid" id="guessGrid">
-      <button class="guess-btn" data-correct="false">≈ 5,000<small>顆 / 年</small></button>
-      <button class="guess-btn" data-correct="true">78,000 ～ 211,000<small>顆 / 年</small></button>
-      <button class="guess-btn" data-correct="false">≈ 1,000,000<small>顆 / 年</small></button>
+    <div class="reveal-gate">
+      <h3>🗣 先猜，再揭曉</h3>
+      <p>兩個問題，和隔壁同學討論 2 分鐘：<br>
+      ① 你覺得一個普通人<b>每年</b>從食物、飲水、空氣吃進幾顆塑膠微粒？（幾百？幾千？幾萬？）<br>
+      ② 塑膠要碎到<b>多小</b>，才叫「微塑膠」？用身邊的東西比喻看看（米粒？頭髮？細胞？）</p>
+      <div class="gate-actions"><button class="btn reveal" data-reveal="u1-answer">我們猜好了，揭曉 →</button></div>
     </div>
 
-    <div class="guess-reveal" id="guessReveal">
-      世界經濟論壇估計 ▸ <b>78,000 ～ 211,000 顆 / 年</b> ▸ 約等於每天嚼一塊樂高
+    <div class="reveal-content" id="u1-answer" hidden>
+      <div class="grid c3" style="margin:20px 0">
+        <div class="card"><p class="big num">78,000–211,000<span style="font-size:1rem"> 顆/年</span></p><p class="cap">世界經濟論壇估計的每人年攝入量——約等於每天嚼一塊樂高</p></div>
+        <div class="card tint-pla"><p class="big num">0.1–5000<span style="font-size:1rem"> μm</span></p><p class="cap">微塑膠（microplastics）的定義尺寸——上限 5 mm，下限比細菌還小</p></div>
+        <div class="card tint-sea"><p class="big num">&lt; 0.1<span style="font-size:1rem"> μm</span></p><p class="cap">奈米塑膠（nanoplastics）——小到能穿過細胞間隙的等級</p></div>
+      </div>
+
+      <div class="scale-row">
+        <div class="scale-item">
+          <div class="scale-circle" style="width:130px;height:130px;font-size:1.4rem">5mm</div>
+          <div class="scale-label">塑膠袋碎片</div>
+          <div class="scale-size">≥ 5 mm（一般垃圾）</div>
+        </div>
+        <div class="scale-item">
+          <div class="scale-circle" style="width:95px;height:95px;font-size:1.05rem">1mm</div>
+          <div class="scale-label">微塑膠</div>
+          <div class="scale-size">5 mm — 0.1 μm</div>
+        </div>
+        <div class="scale-item">
+          <div class="scale-circle" style="width:64px;height:64px;font-size:.8rem">7µm</div>
+          <div class="scale-label">紅血球（對照）</div>
+          <div class="scale-size">≈ 7 μm</div>
+        </div>
+        <div class="scale-item hot">
+          <div class="scale-circle" style="width:34px;height:34px;font-size:.6rem">·</div>
+          <div class="scale-label">奈米塑膠</div>
+          <div class="scale-size">&lt; 0.1 μm（細胞級）</div>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:18px">
+        <p><b>關鍵觀念：</b>奈米塑膠比紅血球小 70 倍以上——小到可以穿過<b>腸道屏障</b>、<b>血氣屏障</b>，甚至<b>血腦屏障（blood-brain barrier）</b>。
+        科學家已在人類的肺、血液、胎盤、肝、腎，甚至<b>大腦</b>中檢出微塑膠。
+        它的形狀五花八門：碎片、纖維、球體、顆粒、薄片——來源包括衣服的合成纖維、輪胎磨損粉塵、洗衣廢水、塑膠包裝的碎裂。</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ========== SLIDE 3: THREE EVIDENCE ========== -->
-<section class="slide" data-slide="3" data-section="引起動機">
-  <div class="slide-inner">
-    <div class="kicker">OVERVIEW ／ 今天的三個證據</div>
-    <h2 class="slide-title">塑膠，已經<span class="accent2">滲進日常</span></h2>
-    <p class="body-text" style="margin-bottom:32px">三個 2025 年公開研究，從三個你最熟悉的地方下手。</p>
+<!-- ================= 單元2：瓶裝水之謎 ================= -->
+<section id="u2">
+  <div class="wrap">
+    <div class="unit-tag">單元 2</div>
+    <h2>瓶裝水之謎：哪一種瓶子最「髒」？</h2>
+    <p class="prose">德國科學家用同一套方法，測了三種瓶裝水裡的微塑膠。<b>先投票，再揭曉</b>——你覺得哪一種每公升的微塑膠最多？</p>
 
-    <div class="grid-3">
+    <div class="guess-row" id="bottleGuess">
+      <button class="guess-btn" data-choice="single"><b>🧴 全新 PET 瓶</b><small>單次使用的寶特瓶</small></button>
+      <button class="guess-btn" data-choice="reuse"><b>♻️ 重複使用 PET 瓶</b><small>回收再填裝的寶特瓶</small></button>
+      <button class="guess-btn" data-choice="glass"><b>🫙 玻璃瓶</b><small>看起來最高級的那種</small></button>
+    </div>
+
+    <div class="reveal-content" id="u2-answer" hidden>
+      <p id="bottleFeedback" style="font-weight:700"></p>
+      <div class="barchart" aria-label="三種瓶裝水微塑膠含量比較">
+        <div class="bar-row"><div class="bar-name">全新 PET 瓶</div><div class="bar-track"><div class="bar-fill" data-w="42"></div></div><div class="bar-val num">2,649 顆/L</div></div>
+        <div class="bar-row"><div class="bar-name">重複使用 PET</div><div class="bar-track"><div class="bar-fill" data-w="78"></div></div><div class="bar-val num">4,889 顆/L</div></div>
+        <div class="bar-row"><div class="bar-name">玻璃瓶 🏆</div><div class="bar-track"><div class="bar-fill pla" data-w="100"></div></div><div class="bar-val num">6,292 顆/L</div></div>
+      </div>
+      <div class="prose">
+        <p><b>反直覺的冠軍是玻璃瓶！</b>因為瓶身雖然是玻璃，但<b>瓶蓋是塑膠</b>、灌裝管線是塑膠、
+        清洗與封蓋過程的摩擦都會掉屑——「容器看起來像什麼」和「裡面有什麼」是兩回事。</p>
+      </div>
+      <div class="card tint-pla" style="margin-top:8px">
+        <h3>😱 加碼揭曉：你看不到的才是大宗</h3>
+        <p style="font-size:.95rem;margin-bottom:0">上面的數字只算「儀器看得到」的顆粒。2024 年科學家改用<b>超光譜受激拉曼散射成像</b>（能看見奈米級）重測瓶裝水，
+        結果是每公升 <b class="num">240,000 顆</b>——其中 <b>90% 是奈米塑膠</b>。傳統方法漏掉的，比抓到的多幾十倍。</p>
+      </div>
+      <p class="prose" style="margin-top:14px"><b>快速應用：</b>那該喝什麼？別急——先到實驗室 A 算算你今天的總攝入量，再到「行動清單」找答案。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 實驗室 A：攝入計算機 ================= -->
+<section id="labA">
+  <div class="wrap">
+    <div class="unit-tag">實驗室 A</div>
+    <h2>今天，你吃進幾顆？</h2>
+    <p class="prose">
+      下面的數字<b>不是隨便編的</b>——全部取自論文彙整的實測研究（各食品的平均檢出濃度）。
+      拉動滑桿，輸入你<b>今天真實的飲食</b>，看看估計吃進幾顆微塑膠。⚠ 注意最下面兩顆「地雷」。
+    </p>
+    <div class="lab">
+      <div class="lab-head">
+        <h3>🍱 挑戰：估算你的「一日微塑膠攝入量」</h3>
+        <p>參考值：世界經濟論壇估計全球平均 78,000–211,000 顆/年（約 214–578 顆/天）。你會落在哪裡？</p>
+      </div>
+      <div class="lab-body">
+        <div class="lab-left">
+          <div class="slider-row">
+            <label for="cWater">🧴 瓶裝水（600 mL 寶特瓶）<span class="pct num" id="cWater-val">1 瓶</span></label>
+            <input type="range" id="cWater" min="0" max="6" value="1" step="1">
+            <div class="contrib num" id="cWater-c"></div>
+          </div>
+          <div class="slider-row s-pla">
+            <label for="cBoba">🧋 手搖飲／珍奶<span class="pct num" id="cBoba-val">1 杯</span></label>
+            <input type="range" id="cBoba" min="0" max="4" value="1" step="1">
+            <div class="contrib num" id="cBoba-c"></div>
+          </div>
+          <div class="slider-row s-warn">
+            <label for="cTuna">🐟 鮪魚罐頭（100 g／份）<span class="pct num" id="cTuna-val">0 份</span></label>
+            <input type="range" id="cTuna" min="0" max="3" value="0" step="1">
+            <div class="contrib num" id="cTuna-c"></div>
+          </div>
+          <div class="slider-row s-leaf">
+            <label for="cTea">🍵 泡茶（散裝茶葉，克）<span class="pct num" id="cTea-val">0 g</span></label>
+            <input type="range" id="cTea" min="0" max="10" value="0" step="1">
+            <div class="contrib num" id="cTea-c"></div>
+          </div>
+          <div class="slider-row s-pla">
+            <label for="cGum">🍬 口香糖<span class="pct num" id="cGum-val">0 片</span></label>
+            <input type="range" id="cGum" min="0" max="10" value="0" step="1">
+            <div class="contrib num" id="cGum-c"></div>
+          </div>
+
+          <label class="bomb-row"><input type="checkbox" id="cTeabag">
+            <span><b>💣 地雷 1：</b>今天用<b>尼龍／PP 三角立體茶包</b>泡了茶（95°C 熱水 → 每杯釋出數百萬至數十億顆）</span></label>
+          <label class="bomb-row"><input type="checkbox" id="cMicrowave">
+            <span><b>💣 地雷 2：</b>今天用<b>塑膠容器微波</b>加熱食物 3 分鐘（PP 容器每 cm² 釋出約 20 億顆奈米塑膠＋400 萬顆微塑膠）</span></label>
+
+          <div class="preset-row">
+            <button class="preset" data-c="1,1,0,0,0,0,0">🥤 一般高中生的一天</button>
+            <button class="preset" data-c="3,2,1,0,5,0,0">🍽 重度外食日</button>
+            <button class="preset" data-c="0,0,0,2,0,0,0">🌿 低塑模範生</button>
+          </div>
+        </div>
+        <div class="lab-right">
+          <div class="readout">
+            <div class="stat" id="cDay-box" style="grid-column:1/-1">
+              <div class="l">今日估計攝入</div>
+              <div class="v num" id="cDay">—</div>
+              <div class="u">顆微塑膠 / 天</div>
+            </div>
+            <div class="stat">
+              <div class="l">照這樣過一年</div>
+              <div class="v num" id="cYear">—</div>
+              <div class="u">顆 / 年</div>
+            </div>
+            <div class="stat">
+              <div class="l">vs 全球平均估計</div>
+              <div class="v num" id="cRatio">—</div>
+              <div class="u">（平均約 214–578 顆/天）</div>
+            </div>
+          </div>
+          <div class="verdict" id="cVerdict">拉動滑桿開始估算……</div>
+          <p style="font-size:.83rem; color:var(--muted); margin-top:14px">
+            💡 冷知識：珍珠奶茶與咖啡的抽查中 <b>93%</b> 的樣本檢出微塑膠（0–43 顆/杯），而且<b>外送的比店面現場買的更高</b>——多一層塑膠袋、多一段路途晃動。
+          </p>
+          <p style="font-size:.8rem; color:var(--muted); margin-top:8px">
+            ※ 各項係數為文獻平均值，實際值因品牌、水源、方法差異極大（見單元 4），此估算僅供教學。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 單元3：污染計程車 ================= -->
+<section id="u3">
+  <div class="wrap">
+    <div class="unit-tag">單元 3</div>
+    <h2>微塑膠是一輛污染計程車</h2>
+
+    <div class="reveal-gate">
+      <h3>🗣 先討論，再揭曉</h3>
+      <p>這篇論文最重要的觀點藏在一個問題裡，討論 2 分鐘：<br>
+      <b>「吃進一顆微塑膠」為什麼可能比「吃進同樣重量的一塊大塑膠」更危險？</b><br>
+      提示：想想海綿、想想磁鐵、想想公車。</p>
+      <div class="gate-actions"><button class="btn reveal" data-reveal="u3-answer">我們討論完了，看科學家的答案 →</button></div>
+    </div>
+
+    <div class="reveal-content" id="u3-answer" hidden>
+      <div class="grid c3" style="margin:18px 0">
+        <div class="card tint-sea">
+          <h3>1️⃣ 吸附 Adsorb</h3>
+          <p style="font-size:.93rem">顆粒越小，<b>總表面積</b>越大。微塑膠表面像海綿，把水裡、土裡的<b>重金屬</b>（鎘、鉛、鉻）、<b>抗生素</b>、<b>持久性有機污染物（POPs）</b>吸到身上。</p>
+        </div>
+        <div class="card tint-pla">
+          <h3>2️⃣ 載運 Carry</h3>
+          <p style="font-size:.93rem">這輛「計程車」載著乘客沿食物鏈移動：水→魚蝦→餐盤→你的腸道。表面還會長出<b>生物膜</b>——科學家叫它<b>「塑膠圈」（plastisphere）</b>，可窩藏沙門氏菌、李斯特菌與<b>抗藥性基因</b>。</p>
+        </div>
+        <div class="card tint-leaf">
+          <h3>3️⃣ 釋放 Release</h3>
+          <p style="font-size:.93rem">進入腸道後，胃酸、膽鹽、消化酶會改變顆粒表面，讓乘客<b>在體內下車</b>。貽貝實驗：PE 微塑膠＋污染物「芘」一起餵 → 累積量與神經損傷指標都比單獨餵更高。</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p><b>但科學不是恐怖片：</b>「1 + 1」不一定大於 2。有些情況下，微塑膠把重金屬<b>吸住固定</b>，反而降低了毒性。
+        聯合毒性可能加成、也可能抵銷——這正是科學家還在努力搞清楚的前沿問題。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 實驗室 B：吸附排行榜 ================= -->
+<section id="labB">
+  <div class="wrap">
+    <div class="unit-tag">實驗室 B</div>
+    <h2>吸附力排行榜：哪種塑膠最會「載客」？</h2>
+    <p class="prose">
+      2025 年科學家測了各種塑膠對重金屬的吸附容量（μg/g，越高越會「載客」）。
+      <b>你的任務：</b>按照你預測的排名，<b>從最會吸的開始</b>，依序點下面五張卡。點完自動對答案！
+    </p>
+    <div class="lab">
+      <div class="lab-head">
+        <h3>🚕 挑戰：排出五種塑膠的「載客力」名次</h3>
+        <p>提示：吸附力的關鍵是表面的<b>極性官能基</b>——能跟重金屬形成氫鍵、錯合或離子交換的化學結構。</p>
+      </div>
+      <div style="padding:22px 24px">
+        <div class="rank-pool" id="rankPool"></div>
+        <div class="verdict" id="rankVerdict">從「你覺得最會吸附的」開始點……（已選 0 / 5）</div>
+        <div class="reveal-content" id="rankResult" hidden>
+          <div class="barchart" id="rankBars" style="margin-top:16px"></div>
+          <div class="prose">
+            <p><b>為什麼尼龍是冠軍？</b>尼龍（PA）滿身都是<b>醯胺基</b>，最會跟重金屬形成氫鍵；PVC 靠 C–Cl 的偶極作用；
+            而保麗龍（PS）表面只有苯環的 π-π 作用力，抓力最弱——差距接近 <b>6 倍</b>。<br>
+            <b>細思極恐：</b>還記得單元 2 的三角茶包嗎？它就是尼龍做的——釋放量大、又最會吸附污染物。</p>
+          </div>
+        </div>
+        <div class="preset-row"><button class="preset" id="rankReset">🔄 重新挑戰</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 單元4：科學方法 ================= -->
+<section id="u4">
+  <div class="wrap">
+    <div class="unit-tag">單元 4</div>
+    <h2>科學家怎麼看見看不見的東西？</h2>
+
+    <div class="reveal-gate">
+      <h3>🗣 先想，再揭曉</h3>
+      <p>兩個偵探問題，討論 2 分鐘：<br>
+      ① 微塑膠比細胞還小、五顏六色、混在食物裡——你要怎麼<b>證明</b>某顆小點是塑膠、還能說出它是哪一種塑膠？<br>
+      ② 同樣是瓶裝水，有的研究說 10 顆/L、有的說 6,000 顆/L、有的說 240,000 顆/L——差了上萬倍，<b>誰在說謊？</b></p>
+      <div class="gate-actions"><button class="btn reveal" data-reveal="u4-answer">我們想好了，揭曉 →</button></div>
+    </div>
+
+    <div class="reveal-content" id="u4-answer" hidden>
+      <div class="grid c2" style="margin:18px 0">
+        <div class="card tint-sea">
+          <h3>🔬 ① 分子指紋辨識</h3>
+          <p style="font-size:.94rem">每種塑膠的分子都有獨特的<b>振動頻率</b>，像指紋一樣。
+          科學家用<b>紅外光譜（FTIR）</b>或<b>拉曼光譜（Raman）</b>照射顆粒，比對「指紋圖庫」，
+          就能斷定：這顆是 PET、那顆是尼龍。最新的<b>超光譜拉曼成像</b>甚至能看見奈米塑膠——
+          這就是 240,000 顆/L 那個數字的由來。</p>
+        </div>
+        <div class="card tint-leaf">
+          <h3>⚖️ ② 沒有人說謊——是「尺不一樣」</h3>
+          <p style="font-size:.94rem">數字差萬倍的真相：各研究的<b>濾網孔徑</b>不同（20 μm 的網抓不到 1 μm 的顆粒）、
+          <b>單位</b>不同（顆/L、顆/kg、顆/罐）、<b>尺寸下限</b>不同。
+          論文作者最重要的呼籲之一，就是建立<b>統一的分析協定</b>，讓全世界的數據可以互相比較。</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p><b>科學素養時刻：</b>下次看到「某食物驗出 XX 顆微塑膠！」的新聞，先問三件事——
+        用什麼方法測的？濾網多細？單位是什麼？<b>會問這三個問題，你就已經比大多數大人更會讀科學新聞了。</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 單元5：大腦與真相 ================= -->
+<section id="u5">
+  <div class="wrap">
+    <div class="unit-tag">單元 5</div>
+    <h2>從馬里亞納海溝，到你的大腦</h2>
+    <p class="prose">最後一站，看看這位訪客到底走了多遠——以及科學家<b>敢說</b>與<b>不敢說</b>的界線在哪裡。</p>
+
+    <div class="grid c3" style="margin:18px 0">
+      <div class="card"><p class="big num">10,000 m</p><p class="cap">馬里亞納海溝底部的沉積物中，也檢出微塑膠——地球上已無淨土</p></div>
+      <div class="card tint-pla"><p class="big num">+50%</p><p class="cap">2024 年解剖的人腦樣本，微塑膠含量比 2016 年多了約一半</p></div>
+      <div class="card tint-pla"><p class="big num">30 ×</p><p class="cap">大腦中的微塑膠濃度，約是肝臟與腎臟的 30 倍——「腦選擇性富集」</p></div>
+    </div>
+
+    <div class="grid c2">
       <div class="card">
-        <div class="card-num">01 ／ GUM</div>
-        <div class="card-title">嚼一片口香糖</div>
-        <div class="card-big">600</div>
-        <div class="card-unit">顆微塑膠 / 克（最高）</div>
-        <div class="card-body">美國學者實驗：嚼 4 分鐘，唾液中累積 100–600 顆微塑膠。</div>
+        <h3>✅ 科學家敢說的</h3>
+        <p style="font-size:.94rem">微塑膠確實存在於人體多個器官；動物實驗中觀察到氧化壓力、發炎、
+        腸道屏障受損、經<b>腸-腦軸</b>傳遞的發炎訊號；流行病學上與動脈硬化、帕金森氏症<b>「相關」</b>。</p>
       </div>
-      <div class="card accent2">
-        <div class="card-num">02 ／ TEA</div>
-        <div class="card-title">沖一杯尼龍茶包</div>
-        <div class="card-big">10<sup style="font-size:0.5em">9</sup></div>
-        <div class="card-unit">顆微塑膠 / 毫升（最高）</div>
-        <div class="card-body">巴塞隆納研究：尼龍/PP 茶包熱水沖泡 → 數百萬至十億顆釋出。</div>
-      </div>
-      <div class="card warn">
-        <div class="card-num">03 ／ BOTTLE</div>
-        <div class="card-title">扭一次瓶蓋</div>
-        <div class="card-big">62</div>
-        <div class="card-unit">顆微塑膠 / 公升</div>
-        <div class="card-body">法國檢測：開瓶 20 次後，舒味思高達 62 顆 / L、可口可樂 44 顆 / L。</div>
+      <div class="card">
+        <h3>🚫 科學家不敢說的</h3>
+        <p style="font-size:.94rem"><b>「微塑膠導致這些疾病」——因果關係尚未確立。</b>
+        人體不能做對照實驗（不能故意餵一組人塑膠），長期低劑量數據幾乎沒有。
+        而且你可能想不到：目前<b>沒有任何國家或機構</b>訂出微塑膠的每日耐受攝取量或法定限量標準。</p>
       </div>
     </div>
 
-    <div class="citation"><b>來源：</b>FoodNEXT × 巴塞隆納自治大學 × 法國 Agir pour l'Environnement（2025）</div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 4: WHAT IS MICROPLASTIC ========== -->
-<section class="slide" data-slide="4" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">DEFINITION ／ 一個尺度問題</div>
-    <h2 class="slide-title">微塑膠是<span class="accent">多小</span>的塑膠？</h2>
-    <p class="body-text">當塑膠被磨碎、加熱、咀嚼、沖泡，它會碎成肉眼看不到的尺寸 ── 然後跟著食物進入你的身體。</p>
-
-    <div class="scale-row">
-      <div class="scale-item">
-        <div class="scale-circle" style="width:140px;height:140px;font-size:1.5rem">5mm</div>
-        <div class="scale-label">塑膠袋碎片</div>
-        <div class="scale-size">≥ 5 mm（一般垃圾）</div>
-      </div>
-      <div class="scale-item">
-        <div class="scale-circle" style="width:100px;height:100px;font-size:1.1rem">1mm</div>
-        <div class="scale-label">微塑膠</div>
-        <div class="scale-size">&lt; 5 mm ─ 1 µm</div>
-      </div>
-      <div class="scale-item">
-        <div class="scale-circle" style="width:70px;height:70px;font-size:0.85rem">1µm</div>
-        <div class="scale-label">奈米塑膠</div>
-        <div class="scale-size">&lt; 1 µm（細胞級）</div>
-      </div>
-      <div class="scale-item">
-        <div class="scale-circle pulse" style="width:34px;height:34px;font-size:0.6rem">·</div>
-        <div class="scale-label">紅血球</div>
-        <div class="scale-size">≈ 7 µm（對照組）</div>
+    <div class="reveal-gate" id="policyGate">
+      <h3>🗳 全班表決：換你當決策者</h3>
+      <p>證據還不完整，但風險訊號已經出現。如果你是食品主管機關，<b>現在</b>會怎麼做？先投票再揭曉論文的建議！</p>
+      <div class="gate-actions">
+        <button class="btn ghost poll-btn" data-poll="now" data-reveal="u5-ending">立刻訂限量標準</button>
+        <button class="btn ghost poll-btn" data-poll="monitor" data-reveal="u5-ending">先強制監測高風險食品</button>
+        <button class="btn ghost poll-btn" data-poll="wait" data-reveal="u5-ending">等因果證據確立再說</button>
       </div>
     </div>
-
-    <p class="small-text" style="margin-top:36px"><span class="tag">關鍵</span>奈米塑膠比紅血球還小 ── 可以穿過<b style="color:var(--ink)">腸道屏障</b>、進入血液與器官。</p>
-  </div>
-</section>
-
-<!-- ========== SLIDE 5: SOURCES MAP ========== -->
-<section class="slide" data-slide="5" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">SOURCES ／ 它從哪裡來</div>
-    <h2 class="slide-title">四個入口，<span class="accent2">每天都會走</span></h2>
-
-    <div class="source-diagram">
-      <svg viewBox="0 0 1000 460" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#006eb5" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#c8155c" stop-opacity="0.4"/>
-          </linearGradient>
-        </defs>
-        <line x1="200" y1="100" x2="500" y2="230" stroke="url(#lineGrad)" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <line x1="800" y1="100" x2="500" y2="230" stroke="url(#lineGrad)" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <line x1="200" y1="360" x2="500" y2="230" stroke="url(#lineGrad)" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <line x1="800" y1="360" x2="500" y2="230" stroke="url(#lineGrad)" stroke-width="1.5" stroke-dasharray="4 4"/>
-      </svg>
-
-      <div class="src-center">微塑膠<br>入口</div>
-
-      <div class="src-node src-n1">
-        <div class="src-label">01 ／ 飲料包裝</div>
-        <div class="src-name">瓶 × 蓋</div>
-        <div class="src-desc">寶特瓶開蓋摩擦、運送震動 → 微塑膠掉入液體</div>
-      </div>
-      <div class="src-node src-n2">
-        <div class="src-label">02 ／ 加熱沖泡</div>
-        <div class="src-name">茶包 × 微波</div>
-        <div class="src-desc">尼龍茶包 + 熱水 → 數十億顆釋放</div>
-      </div>
-      <div class="src-node src-n3">
-        <div class="src-label">03 ／ 食物來源</div>
-        <div class="src-name">海鮮 × 食鹽</div>
-        <div class="src-desc">海洋塑膠進入食物鏈 → 蝦、貝、魚累積</div>
-      </div>
-      <div class="src-node src-n4">
-        <div class="src-label">04 ／ 直接咀嚼</div>
-        <div class="src-name">口香糖 × 牙膏</div>
-        <div class="src-desc">膠基本身是合成聚合物 → 嚼一片 100–600 顆</div>
+    <div class="reveal-content" id="u5-ending" hidden>
+      <div class="prose" style="margin-top:18px">
+        <p id="policyFeedback" style="font-weight:700"></p>
+        <p><b>論文的政策建議是「三路並進」：</b>① 訂定微塑膠限量標準、② 對海鮮、瓶裝水、加工食品等高風險食品<b>常規監測</b>、
+        ③ 禁止刻意添加塑膠微珠，並推動食品業改用非塑膠或低脫落材料。
+        科學上「證據不完整」不等於「什麼都不做」——這叫<b>預防原則（precautionary principle）</b>。</p>
+        <p><b>還有好消息：</b>科學家正在開發能「撈出」微塑膠的吸附材料——磁性奈米粒子（效率 92.9%）、
+        金屬有機框架 MOF（1 小時 100%）、甲殼素水凝膠（99.9%）……
+        最酷的是原料：<b>廢棄小龍蝦殼、椰子殼、玉米芯</b>都能變身吸附劑。
+        但注意：這些數字幾乎都是「純水實驗室」成績，在真正的食物（有油、有蛋白質）裡還沒驗證——實驗室的 100% ≠ 餐桌上的 100%。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== SLIDE 6: BOTTLED DRINKS ========== -->
-<section class="slide" data-slide="6" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">EVIDENCE 01 ／ 法國 Agir pour l'Environnement</div>
-    <h2 class="slide-title">每扭一次瓶蓋，<span class="accent">多一點塑膠</span></h2>
+<!-- ================= 行動清單 ================= -->
+<section id="action">
+  <div class="wrap">
+    <div class="unit-tag">喚起行動</div>
+    <h2>本週，先挑一項試試看</h2>
+    <p class="prose">知識的最後一哩路是行動。點選你<b>這週願意執行</b>的項目（會記住你的勾選）：</p>
 
-    <div class="grid-2" style="margin-top:18px">
-      <div>
-        <div class="chart-wrap">
-          <canvas id="bevChart"></canvas>
-        </div>
+    <div class="check-grid" id="checkList">
+      <div class="check-item" data-k="bottle"><div class="box"></div><div><b>自帶不鏽鋼水瓶</b><span>取代寶特瓶——順便躲掉瓶蓋摩擦的碎屑</span></div></div>
+      <div class="check-item" data-k="teabag"><div class="box"></div><div><b>不買尼龍三角茶包</b><span>改用散裝茶葉＋不鏽鋼濾網，或紙茶包</span></div></div>
+      <div class="check-item" data-k="microwave"><div class="box"></div><div><b>微波前換瓷盤</b><span>拆掉「加熱 × 塑膠」這顆頭號地雷</span></div></div>
+      <div class="check-item" data-k="delivery"><div class="box"></div><div><b>手搖飲改店面現場買</b><span>外送樣本的微塑膠檢出高於店面</span></div></div>
+      <div class="check-item" data-k="gum"><div class="box"></div><div><b>少嚼口香糖</b><span>膠基就是合成聚合物——嚼 4 分鐘釋出上百顆</span></div></div>
+      <div class="check-item" data-k="share"><div class="box"></div><div><b>回家分享 1 個冷知識</b><span>推薦：「玻璃瓶居然輸給塑膠瓶」</span></div></div>
+    </div>
+    <p class="prose" id="checkCount" style="font-weight:700"></p>
+  </div>
+</section>
+
+<!-- ================= 程式角落 ================= -->
+<section id="code">
+  <div class="wrap">
+    <div class="unit-tag">程式角落</div>
+    <h2>自己算出年攝入量（含不確定性）</h2>
+    <p class="prose">
+      實驗室 A 的計算機背後只是一條「加權加總」。挑一個你熟的工具重現它——
+      並升級成科學家的版本：<b>用區間（最小值～最大值）取代單一數字</b>，感受「不確定性」怎麼用數學表達。
+    </p>
+    <pre class="mono" style="font-size:.9rem">年攝入量 = Σ（每日食用量 × 每單位微塑膠數）× 365
+文獻係數：瓶裝水 2,649 顆/L ・ 手搖飲 0–43 顆/杯 ・ 鮪魚罐頭 692 顆/100g ・ 茶葉 200–500 顆/g ・ 口香糖 100–600 顆/片</pre>
+
+    <div class="tabs" role="tablist" style="margin-top:20px">
+      <button class="tab" role="tab" aria-selected="true" data-panel="p-excel">📊 Excel</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-py">🐍 Python</button>
+      <button class="tab" role="tab" aria-selected="false" data-panel="p-r">📈 R</button>
+    </div>
+
+    <div class="tabpanel" id="p-excel" role="tabpanel">
+      <h3>Excel（SUMPRODUCT 一行搞定）</h3>
+      <ol class="kbd-steps" style="font-size:.94rem">
+        <li><code>A</code> 欄輸入品項（瓶裝水、手搖飲、鮪魚罐頭、茶葉、口香糖）。</li>
+        <li><code>B2:B6</code> 輸入你的每日食用量（例：1.2、1、0、2、0——瓶裝水以公升計）。</li>
+        <li><code>C2:C6</code> 輸入文獻係數（2649、22、692、350、300）。</li>
+        <li><code>E2</code> 輸入年攝入量公式：</li>
+      </ol>
+      <div class="copy-wrap">
+        <button class="copy-btn" data-copy="excel-f">複製</button>
+        <pre id="excel-f">=SUMPRODUCT(B2:B6,C2:C6)*365</pre>
       </div>
-      <div>
-        <p class="body-text" style="margin-bottom:18px">
-          法國研究把瓶裝飲料反覆<b style="color:var(--ink)">開、關、開、關</b> ── 模擬一天分幾次喝完一瓶可樂。
-        </p>
-        <p class="body-text" style="margin-bottom:18px">
-          結果：開瓶 20 次後，瓶內微塑膠數量明顯飆升，舒味思甚至達<b class="accent2">62 顆 / 公升</b>。
-        </p>
-        <p class="small-text"><span class="tag">關鍵</span>每一次扭蓋，塑膠螺紋會微微磨損，碎屑掉進液體。</p>
-        <p class="small-text" style="margin-top:8px"><span class="tag warn">小建議</span>一次喝完，或改裝玻璃 / 不鏽鋼瓶。</p>
+      <ol class="kbd-steps" start="5" style="font-size:.94rem">
+        <li>進階：把 <code>C</code> 欄換成「最小係數」與「最大係數」兩欄，各算一次——你的年攝入量就變成一個<b>區間</b>，跟論文的表達方式一樣。</li>
+        <li>對照：世界經濟論壇的估計是 78,000–211,000 顆/年。你落在裡面嗎？</li>
+      </ol>
+    </div>
+
+    <div class="tabpanel" id="p-py" role="tabpanel" hidden>
+      <h3>Python（用字典算加權和＋不確定性區間）</h3>
+      <div class="copy-wrap">
+        <button class="copy-btn" data-copy="py-code">複製</button>
+        <pre id="py-code"># 每單位微塑膠數（顆）：(最小, 最大)——取自 Feng &amp; Chen (2026) 彙整的文獻
+rates = {
+    "瓶裝水(L)":    (2649-1000, 2649+1000),   # 標準差極大，取示意區間
+    "手搖飲(杯)":   (0, 43),
+    "鮪魚罐頭(份)": (692-120, 692+120),
+    "茶葉(g)":      (200, 500),
+    "口香糖(片)":   (100, 600),
+}
+today = {"瓶裝水(L)": 1.2, "手搖飲(杯)": 1, "鮪魚罐頭(份)": 0,
+         "茶葉(g)": 0, "口香糖(片)": 0}   # ← 改成你今天的量
+
+lo = sum(today[k] * rates[k][0] for k in today) * 365
+hi = sum(today[k] * rates[k][1] for k in today) * 365
+print(f"你的年攝入量估計：{lo:,.0f} ～ {hi:,.0f} 顆/年")
+print("世界經濟論壇的全球平均估計：78,000 ～ 211,000 顆/年")
+# 思考：為什麼科學家寧可給「區間」也不給單一數字？</pre>
+      </div>
+    </div>
+
+    <div class="tabpanel" id="p-r" role="tabpanel" hidden>
+      <h3>R（向量化計算）</h3>
+      <div class="copy-wrap">
+        <button class="copy-btn" data-copy="r-code">複製</button>
+        <pre id="r-code"># 每單位微塑膠數（顆）——取自 Feng &amp; Chen (2026) 彙整的文獻
+rate_lo &lt;- c(water=1649, boba=0,  tuna=572, tea=200, gum=100)
+rate_hi &lt;- c(water=3649, boba=43, tuna=812, tea=500, gum=600)
+today   &lt;- c(water=1.2,  boba=1,  tuna=0,   tea=0,   gum=0)  # ← 改成你的量
+
+lo &lt;- sum(today * rate_lo) * 365
+hi &lt;- sum(today * rate_hi) * 365
+cat(sprintf("你的年攝入量估計：%s ～ %s 顆/年\n",
+    format(lo, big.mark=","), format(hi, big.mark=",")))
+cat("世界經濟論壇的全球平均估計：78,000 ～ 211,000 顆/年\n")
+# 進階：畫出各品項的貢獻長條圖 barplot(today * (rate_lo+rate_hi)/2)</pre>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top:18px">
+      <p><b>思考題：</b>你算出的區間可能寬到「差 5 倍」。這是計算錯了嗎？——不是，這正反映單元 4 講的<b>方法學不統一</b>。
+      科學的誠實，就是把不確定性寫出來，而不是假裝有一個精準數字。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 測驗 ================= -->
+<section id="quiz">
+  <div class="wrap">
+    <div class="unit-tag">結業測驗</div>
+    <h2>首席微塑膠偵探認證</h2>
+    <p class="prose">10 題單選，作答完按「交卷」立刻看成績與解析。可以重複挑戰，系統會記住你的最佳成績。</p>
+    <div id="quiz-box"></div>
+    <div style="display:flex; gap:12px; align-items:center; margin-top:10px; flex-wrap:wrap">
+      <button class="btn primary" id="quiz-submit">交卷</button>
+      <button class="btn ghost" id="quiz-reset" style="display:none">再挑戰一次</button>
+      <span id="quiz-best" style="color:var(--muted); font-size:.9rem"></span>
+    </div>
+    <div id="quiz-result" role="status">
+      <div class="score num"><span id="quiz-score">0</span> / 10</div>
+      <div class="msg" id="quiz-msg"></div>
+      <div id="score-upload">
+        <input id="seat-input" inputmode="numeric" maxlength="10" placeholder="班級座號（如 10115）" aria-label="班級座號">
+        <button class="btn ghost" id="score-send" type="button">上傳成績給老師</button>
+        <div id="score-status" aria-live="polite"></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== SLIDE 7: TEA BAGS ========== -->
-<section class="slide" data-slide="7" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">EVIDENCE 02 ／ 巴塞隆納自治大學</div>
-    <h2 class="slide-title">一杯熱茶 ＝ <span class="accent2">幾十億顆塑膠</span>？</h2>
-
-    <div class="grid-2" style="margin-top:14px">
-      <div>
-        <div class="tea-stage">
-          <div class="tea-num">10<sup style="font-size:0.5em">9</sup></div>
-          <div class="stat-unit" style="font-size:1.1rem;color:var(--ink-2);margin-top:14px;letter-spacing:2px">顆 微塑膠 / 毫升</div>
-        </div>
-      </div>
-      <div>
-        <p class="body-text" style="margin-bottom:18px">
-          西班牙研究團隊：把<b style="color:var(--ink)">尼龍 (PA)</b>、<b style="color:var(--ink)">聚丙烯 (PP)</b> 的三角立體茶包丟進 95°C 熱水。
-        </p>
-        <p class="body-text" style="margin-bottom:18px">
-          每 mL 茶湯，平均釋出<b class="accent2">數百萬至十億顆</b>微塑膠與奈米塑膠。
-        </p>
-        <p class="small-text"><span class="tag">關鍵</span>越貴的「立體三角茶包」反而問題越大 ── 那是塑膠，不是紙。</p>
-        <p class="small-text" style="margin-top:8px"><span class="tag warn">小建議</span>選紙茶包、不鏽鋼濾網、或直接散裝茶葉。</p>
-      </div>
+<!-- ================= 名詞解釋 ================= -->
+<section id="glossary">
+  <div class="wrap">
+    <div class="unit-tag">附錄</div>
+    <h2>名詞解釋速查表</h2>
+    <p class="prose">課堂上出現的專有名詞與英文縮寫，全部整理在這裡。測驗前掃一遍，穩！</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>名詞／縮寫</th><th>英文</th><th>白話解釋</th></tr></thead>
+        <tbody>
+          <tr><td><b>微塑膠</b></td><td>microplastics</td><td>尺寸 0.1–5000 μm（上限 5 mm）的塑膠顆粒，形狀含碎片、纖維、球體、薄片等</td></tr>
+          <tr><td><b>奈米塑膠</b></td><td>nanoplastics</td><td>小於 0.1 μm 的塑膠顆粒，可穿越腸道、血氣、血腦屏障，潛在毒性更高</td></tr>
+          <tr><td><b>PET</b></td><td>polyethylene terephthalate</td><td>聚對苯二甲酸乙二酯——寶特瓶的材料</td></tr>
+          <tr><td><b>PE／PP</b></td><td>polyethylene / polypropylene</td><td>聚乙烯（塑膠袋、瓶蓋）／聚丙烯（吸管、便當盒、口香糖膠基）</td></tr>
+          <tr><td><b>PS</b></td><td>polystyrene</td><td>聚苯乙烯——保麗龍；對重金屬吸附力最弱（只靠 π-π 作用）</td></tr>
+          <tr><td><b>PA／尼龍</b></td><td>polyamide / nylon</td><td>聚醯胺——三角茶包、絲襪的材料；醯胺基多，重金屬吸附冠軍</td></tr>
+          <tr><td><b>PVC</b></td><td>polyvinyl chloride</td><td>聚氯乙烯——水管、保鮮膜；靠 C–Cl 偶極吸附污染物</td></tr>
+          <tr><td><b>共污染</b></td><td>co-pollution</td><td>微塑膠吸附重金屬、抗生素、微生物後「一起」進入生物體的現象</td></tr>
+          <tr><td><b>塑膠圈</b></td><td>plastisphere</td><td>微塑膠表面形成的微生物生物膜生態圈，可窩藏病原菌與抗藥性基因</td></tr>
+          <tr><td><b>生物膜</b></td><td>biofilm</td><td>微生物分泌黏液附著在表面形成的群落；五階段：附著→群落化→發展→成熟→脫離</td></tr>
+          <tr><td><b>ARG</b></td><td>antibiotic resistance genes</td><td>抗生素抗藥性基因——微塑膠表面是它們水平轉移的熱點</td></tr>
+          <tr><td><b>POPs</b></td><td>persistent organic pollutants</td><td>持久性有機污染物（如 PCB、DDT），難分解、易被微塑膠吸附</td></tr>
+          <tr><td><b>血腦屏障</b></td><td>blood-brain barrier</td><td>保護大腦的細胞屏障；奈米塑膠小到可以穿過它</td></tr>
+          <tr><td><b>腸-腦軸</b></td><td>gut-brain axis</td><td>腸道與大腦之間的訊號通道；腸道發炎訊號（如 IL-1β）可影響大腦</td></tr>
+          <tr><td><b>蛋白冠</b></td><td>protein corona</td><td>蛋白質包覆在微塑膠表面形成的「外衣」，會改變顆粒在體內的行為</td></tr>
+          <tr><td><b>FTIR／拉曼</b></td><td>FTIR / Raman spectroscopy</td><td>紅外光譜／拉曼光譜——用分子振動「指紋」辨識塑膠種類的技術</td></tr>
+          <tr><td><b>MOF</b></td><td>metal-organic framework</td><td>金屬有機框架——超多孔的新材料，實驗室中 1 小時 100% 移除微塑膠</td></tr>
+          <tr><td><b>吸附</b></td><td>adsorption</td><td>物質附著在固體「表面」的現象（注意：不是吸「收」進內部）</td></tr>
+          <tr><td><b>每日耐受攝取量</b></td><td>tolerable daily intake, TDI</td><td>長期每天攝取也不致危害健康的量——微塑膠目前「還沒有」這個標準</td></tr>
+          <tr><td><b>相關 vs 因果</b></td><td>correlation vs causation</td><td>「同時出現」不代表「一個造成另一個」；微塑膠與疾病目前只確立了相關</td></tr>
+          <tr><td><b>預防原則</b></td><td>precautionary principle</td><td>證據還不完整、但風險訊號明確時，先採取合理防範措施的決策原則</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </section>
 
-<!-- ========== SLIDE 8: SEAFOOD 99% ========== -->
-<section class="slide" data-slide="8" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">EVIDENCE 03 ／ Portland State University</div>
-    <h2 class="slide-title">海邊抓回來的，<span class="accent">99% 都中</span></h2>
-
-    <div class="grid-2" style="margin-top:18px">
-      <div>
-        <div class="dot-matrix" id="dotMatrix"></div>
-        <p class="small-text" style="text-align:center;margin-top:18px">
-          <span style="color:var(--accent-2)">●</span> 含微塑膠（180 件）
-          <span style="color:var(--ink-4)">●</span> 未檢出（2 件）
-        </p>
-      </div>
-      <div>
-        <p class="body-text" style="margin-bottom:18px">
-          奧勒岡州立大學在當地沿岸抽檢<b style="color:var(--ink)">182 件水產樣本</b>，含括 6 種商業常見魚蝦貝。
-        </p>
-        <p class="body-text" style="margin-bottom:18px">
-          結果：<b class="accent2">180 件（99%）</b>檢出微塑膠 ── 其中<b style="color:var(--ink)">粉紅蝦</b>污染最嚴重，塑膠顆粒累積在「可食部位」。
-        </p>
-        <p class="small-text"><span class="tag">關鍵</span>塑膠正在透過食物鏈，從海洋進入餐盤。</p>
-        <p class="small-text" style="margin-top:8px"><span class="tag warn">思考</span>水族箱養殖 vs. 野生捕撈，哪個污染少？</p>
-      </div>
-    </div>
+<footer>
+  <div class="wrap">
+    <p><b>教材來源</b></p>
+    <p class="footnote">
+      主要文獻：Feng, J., &amp; Chen, Y. P. (2026). Microplastic co-pollution in food systems: interaction mechanisms,
+      migration, removal technologies, and environmental linkages. <i>Food Research International</i>, 238, 119443.
+      DOI: 10.1016/j.foodres.2026.119443。<br>
+      頁面中的檢出數據（瓶裝水 Oßmann et al. 2018；奈米塑膠 Qian et al. 2024；微波釋放 Hussain et al. 2023；
+      手搖飲 Su et al. 2025；重金屬吸附 Mo et al. 2025；人腦累積 Nihart et al. 2025）皆出自該綜述彙整之原始文獻；
+      年攝入量估計取自世界經濟論壇（WEF）。攝入計算機為文獻平均值之教學估算，非精確暴露評估。
+    </p>
   </div>
-</section>
-
-<!-- ========== SLIDE 9: GUM ========== -->
-<section class="slide" data-slide="9" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">EVIDENCE 04 ／ UCLA Study 2025</div>
-    <h2 class="slide-title">嚼 4 分鐘，<span class="warn">嚼進 600 顆</span></h2>
-
-    <div class="grid-2" style="margin-top:18px">
-      <div>
-        <div style="background:var(--card-bg);border:1px solid var(--card-border);border-radius:18px;padding:32px;text-align:center">
-          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;margin-bottom:14px">實驗設計</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left">
-            <div>
-              <div class="num-big" style="font-size:2.4rem;color:var(--accent)">7</div>
-              <div class="small-text">片口香糖 / 受試者</div>
-            </div>
-            <div>
-              <div class="num-big" style="font-size:2.4rem;color:var(--accent)">4</div>
-              <div class="small-text">分鐘 / 片</div>
-            </div>
-            <div>
-              <div class="num-big" style="font-size:2.4rem;color:var(--accent-2)">30s</div>
-              <div class="small-text">採唾液間隔</div>
-            </div>
-            <div>
-              <div class="num-big" style="font-size:2.4rem;color:var(--warn)">100<span style="font-size:1.2rem">–</span>600</div>
-              <div class="small-text">顆微塑膠 / 克</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <p class="body-text" style="margin-bottom:18px">
-          UCLA 研究發現：<b style="color:var(--ink)">天然口香糖</b>和<b style="color:var(--ink)">合成口香糖</b>，釋放的微塑膠量<b class="accent2">一樣多</b>。
-        </p>
-        <p class="body-text" style="margin-bottom:18px">
-          主要成分是<b style="color:var(--ink)">聚烯烴</b>（聚乙烯 PE、聚丙烯 PP），它們其實就是「塑膠」。
-        </p>
-        <p class="small-text"><span class="tag danger">提醒</span>研究者：兒童大腦正在發育，建議減少攝取。</p>
-        <p class="small-text" style="margin-top:8px"><span class="tag warn">思考</span>一片 2–6 g，嚼一包 12 片 = 多少顆？</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 10: MOUSE ALT ========== -->
-<section class="slide" data-slide="10" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">ANIMAL TEST ／ UC Davis 2025</div>
-    <h2 class="slide-title">小鼠 7 週，<span class="accent2">肝臟出狀況</span></h2>
-    <p class="body-text">加州大學戴維斯分校讓小鼠每天吃進聚苯乙烯<b style="color:var(--ink)">奈米塑膠</b>，連續 7 週。</p>
-
-    <div class="mouse-exp">
-      <div class="mouse-stage">
-        <div class="stage-week">▸ WEEK 0 ／ 健康基準</div>
-        <h4>正常代謝、肝功能正常</h4>
-        <ul>
-          <li>血糖耐受正常</li>
-          <li>ALT（肝酵素）正常</li>
-          <li>腸道屏障完整</li>
-          <li>沒有發炎反應</li>
-        </ul>
-      </div>
-      <div class="mouse-stage after">
-        <div class="stage-week" style="color:var(--danger)">▸ WEEK 7 ／ 持續餵食後</div>
-        <h4 style="color:var(--danger)">三大指標惡化</h4>
-        <ul>
-          <li><b style="color:var(--ink)">葡萄糖不耐</b> ── 血糖代謝變差</li>
-          <li><b style="color:var(--ink)">ALT 升高</b> ── 肝細胞受損</li>
-          <li><b style="color:var(--ink)">腸道屏障受損</b> ── 內毒素滲漏</li>
-          <li>系統性發炎指標上升</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="small-text" style="margin-top:18px"><span class="tag">說明</span>動物實驗無法 100% 對應人類，但這是現有最直接的證據鏈。發表於 2025 年 6 月美國營養學會 (ASN) 年會。</p>
-  </div>
-</section>
-
-<!-- ========== SLIDE 11: EU SURVEY ========== -->
-<section class="slide" data-slide="11" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">EU SURVEY ／ EFSA Eurobarometer 2025</div>
-    <h2 class="slide-title">歐洲怎麼看？<span class="accent">微塑膠 &gt; 農藥</span></h2>
-    <p class="body-text">歐盟 27 國、超過 27,000 人受訪。新興污染物議題，正在<b style="color:var(--ink)">取代傳統食安關注</b>。</p>
-
-    <div class="eu-stats">
-      <div class="eu-stat">
-        <div class="es-num">63%</div>
-        <div class="es-desc">受訪者「聽過」食物中的微塑膠</div>
-        <div class="es-delta">vs. 2022 ▸ +8 ppt</div>
-      </div>
-      <div class="eu-stat">
-        <div class="es-num">33%</div>
-        <div class="es-desc">受訪者「擔憂」自身攝入</div>
-        <div class="es-delta">vs. 2022 ▸ +4 ppt</div>
-      </div>
-      <div class="eu-stat">
-        <div class="es-num">41%</div>
-        <div class="es-desc">「販售食品本來就安全」<br>無需特別留意</div>
-        <div class="es-delta">⚠ 信任悖論</div>
-      </div>
-    </div>
-
-    <p class="small-text" style="margin-top:20px"><span class="tag">關鍵</span>調查也顯示：選購食品時，<b style="color:var(--ink)">價格 &gt; 口感 &gt; 安全</b>。安全只排第三。</p>
-  </div>
-</section>
-
-<!-- ========== SLIDE 12: COMPARISON TABLE ========== -->
-<section class="slide" data-slide="12" data-section="維持注意">
-  <div class="slide-inner">
-    <div class="kicker">COMPARE ／ 食安關注的世代切換</div>
-    <h2 class="slide-title">舊風險 vs. <span class="accent2">新風險</span></h2>
-    <p class="body-text">點擊欄位標題可以排序 ▸ 觀察認知度跟擔憂度誰高誰低。</p>
-
-    <table id="compareTable">
-      <thead>
-        <tr>
-          <th data-key="name" data-type="str">風險類別</th>
-          <th data-key="type" data-type="str">類型</th>
-          <th data-key="aware" data-type="num">認知度</th>
-          <th data-key="worry" data-type="num">擔憂度</th>
-          <th data-key="trend" data-type="str">趨勢</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>食品添加物</td><td>傳統</td><td class="num">71%</td><td class="num">42%</td><td>持平</td></tr>
-        <tr><td>農藥殘留</td><td>傳統</td><td class="num">67%</td><td class="num">40%</td><td>下降</td></tr>
-        <tr><td>食物中毒</td><td>傳統</td><td class="num">58%</td><td class="num">29%</td><td>↑ +5 ppt</td></tr>
-        <tr><td>微塑膠</td><td>新興</td><td class="num">63%</td><td class="num">33%</td><td>↑ +8 ppt</td></tr>
-        <tr><td>動物疾病傳播</td><td>新興</td><td class="num">55%</td><td class="num">26%</td><td>↑ 上升</td></tr>
-        <tr><td>抗生素殘留</td><td>傳統</td><td class="num">52%</td><td class="num">31%</td><td>持平</td></tr>
-      </tbody>
-    </table>
-
-    <p class="small-text" style="margin-top:14px"><span class="tag">觀察</span>微塑膠在 3 年內躥升到第二高關注，這是 EFSA 改變調查框架的主因。</p>
-  </div>
-</section>
-
-<!-- ========== SLIDE 13 (NEW): CARRIER MECHANISM ========== -->
-<section class="slide" data-slide="13" data-section="維持注意・學術深化">
-  <div class="slide-inner">
-    <div class="kicker academic">ACADEMIC ／ Feng & Chen 2026・Food Research International</div>
-    <h2 class="slide-title">不只是塑膠，是<span class="accent2">污染物的小貨車</span></h2>
-    <p class="body-text">最新 review 論文把焦點從「塑膠本身」轉到 <b style="color:var(--ink)">微塑膠的<span class="accent">表面</span></b>。它像海綿一樣，吸附其他污染物，一起進入你的身體。</p>
-
-    <div class="grid-2" style="margin-top:18px;gap:36px">
-      <div class="carrier-wrap">
-        <svg viewBox="0 0 500 380" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="carrLine" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#006eb5" stop-opacity="0.7"/>
-              <stop offset="100%" stop-color="#c8155c" stop-opacity="0.4"/>
-            </linearGradient>
-          </defs>
-          <line x1="250" y1="190" x2="100" y2="60"  stroke="url(#carrLine)" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="250" y1="190" x2="400" y2="60"  stroke="url(#carrLine)" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="250" y1="190" x2="440" y2="200" stroke="url(#carrLine)" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="250" y1="190" x2="400" y2="330" stroke="url(#carrLine)" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="250" y1="190" x2="100" y2="330" stroke="url(#carrLine)" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="250" y1="190" x2="60"  y2="200" stroke="url(#carrLine)" stroke-width="1.5" stroke-dasharray="4 4"/>
-        </svg>
-        <div class="carrier-center">微塑膠<br>表面</div>
-        <div class="carrier-sat" style="top:6%; left:8%">細菌<small>biofilm</small></div>
-        <div class="carrier-sat" style="top:6%; right:8%">POPs<small>PCB·DDT</small></div>
-        <div class="carrier-sat" style="top:44%; right:0">重金屬<small>Cd·Pb·Cr</small></div>
-        <div class="carrier-sat" style="bottom:6%; right:8%">農藥<small>pesticide</small></div>
-        <div class="carrier-sat" style="bottom:6%; left:8%">抗藥基因<small>ARGs</small></div>
-        <div class="carrier-sat" style="top:44%; left:0">BPA<small>添加劑</small></div>
-      </div>
-      <div>
-        <ul class="mech-list">
-          <li><span class="mech-dot">1</span><div><b style="color:var(--ink)">吸附 Adsorb</b> ── 大表面積 + 疏水性，像海綿一樣把污染物吸到表面。</div></li>
-          <li><span class="mech-dot">2</span><div><b style="color:var(--ink)">載運 Carry</b> ── 隨食物進入腸道、血液、淋巴系統，跑遍全身。</div></li>
-          <li><span class="mech-dot">3</span><div><b style="color:var(--ink)">釋放 Release</b> ── 在腸道、肝臟、腦部「局部釋放」，毒性比污染物單獨更強。</div></li>
-        </ul>
-        <p class="small-text" style="margin-top:16px;padding:12px 14px;background:rgba(200,21,92,0.06);border-radius:8px;border-left:3px solid var(--accent-2)">
-          <span class="tag danger">實例</span>地中海貽貝同時接觸 <b style="color:var(--ink)">PE 微塑膠 + 多環芳烴</b>，毒性指標明顯比兩者單獨高。
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 14 (NEW): HEAVY METAL RANKING ========== -->
-<section class="slide" data-slide="14" data-section="維持注意・學術深化">
-  <div class="slide-inner">
-    <div class="kicker academic">ACADEMIC ／ Mo et al. 2025・Heavy Metal Adsorption Capacity</div>
-    <h2 class="slide-title">哪種塑膠最會<span class="accent2">藏東西</span>？</h2>
-    <p class="body-text">同樣是塑膠，不同種類「載污染」的能力差到 <b style="color:var(--ink)">7 倍</b>。Nylon 是冠軍。</p>
-
-    <div class="grid-2" style="margin-top:14px;gap:36px">
-      <div>
-        <div class="chart-wrap" style="height:340px">
-          <canvas id="metalChart"></canvas>
-        </div>
-      </div>
-      <div>
-        <p class="body-text" style="margin-bottom:14px">
-          表面有<b style="color:var(--ink)">極性官能基</b>（醯胺、氯原子、羰基）的塑膠，能跟重金屬形成<b class="accent">氫鍵</b>、<b class="accent">表面錯合</b>、<b class="accent">離子交換</b>。
-        </p>
-        <ul class="mech-list">
-          <li><span class="mech-dot">N</span><div><b style="color:var(--ink)">Nylon／PA66</b> ── 醯胺基豐富 → 吸附冠軍 <b class="accent2">1554 μg/g</b></div></li>
-          <li><span class="mech-dot">P</span><div><b style="color:var(--ink)">PVC</b> ── C–Cl 偶極作用 → <b>1278 μg/g</b></div></li>
-          <li><span class="mech-dot">S</span><div><b style="color:var(--ink)">PS（保麗龍）</b> ── 只靠 π-π，弱 → <b>269 μg/g</b></div></li>
-        </ul>
-        <p class="small-text" style="margin-top:14px"><span class="tag warn">含意</span>吃進 PE 微塑膠不只是吃 PE ── 還可能夾帶 <b style="color:var(--ink)">鎘、鉛、鉻</b>。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 15 (NEW): ACADEMIC DATA TABLE ========== -->
-<section class="slide" data-slide="15" data-section="維持注意・學術深化">
-  <div class="slide-inner">
-    <div class="kicker academic">ACADEMIC ／ 期刊論文檢出彙整・2018-2026</div>
-    <h2 class="slide-title">學術數據總表 ── <span class="accent">哪種食物最髒</span>？</h2>
-    <p class="body-text">點欄位可排序，依顆數高低、單位差異自行判讀。</p>
-
-    <table id="dataTable" style="font-size:0.95rem">
-      <thead>
-        <tr>
-          <th data-key="food" data-type="str">食品</th>
-          <th data-key="conc" data-type="num">濃度</th>
-          <th data-key="unit" data-type="str">單位</th>
-          <th data-key="poly" data-type="str">主要聚合物</th>
-          <th data-key="ref" data-type="str">文獻</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>玻璃瓶裝水</td><td class="num">6292</td><td>顆 / L</td><td>多種（含塑膠瓶蓋）</td><td>Oßmann 2018</td></tr>
-        <tr><td>重複使用 PET 瓶</td><td class="num">4889</td><td>顆 / L</td><td>PET</td><td>Oßmann 2018</td></tr>
-        <tr><td>單次使用 PET 瓶</td><td class="num">2649</td><td>顆 / L</td><td>PET</td><td>Oßmann 2018</td></tr>
-        <tr><td>高光譜瓶裝水</td><td class="num">240000</td><td>顆 / L</td><td>90% 為奈米塑膠</td><td>Qian 2024</td></tr>
-        <tr><td>鹽水鮪魚罐頭</td><td class="num">692</td><td>顆 / 100g</td><td>PET, PS, nylon</td><td>Diaz-Basantes 2022</td></tr>
-        <tr><td>油浸鮪魚罐頭</td><td class="num">442</td><td>顆 / 100g</td><td>多種</td><td>Diaz-Basantes 2022</td></tr>
-        <tr><td>茶葉</td><td class="num">350</td><td>顆 / g</td><td>PE, PET</td><td>Li 2022</td></tr>
-        <tr><td>奶粉</td><td class="num">279</td><td>顆 / kg</td><td>多種</td><td>Chakraborty 2024</td></tr>
-        <tr><td>液態牛奶</td><td class="num">182</td><td>顆 / L</td><td>多種</td><td>Chakraborty 2024</td></tr>
-        <tr><td>啤酒</td><td class="num">50</td><td>顆 / mL</td><td>PS, PP</td><td>Li 2022</td></tr>
-      </tbody>
-    </table>
-
-    <p class="small-text" style="margin-top:14px"><span class="tag danger">反直覺</span>玻璃瓶 (6292) 反而比 PET 瓶 (2649) 多 ── 因為瓶蓋與封口仍是塑膠！</p>
-  </div>
-</section>
-
-<!-- ========== SLIDE 16 (NEW): BRAIN CRISIS ========== -->
-<section class="slide" data-slide="16" data-section="維持注意・學術深化">
-  <div class="slide-inner">
-    <div class="kicker academic">ACADEMIC ／ Nihart et al. 2025・Brain Accumulation Study</div>
-    <h2 class="slide-title">大腦，是最嚴重的<span class="accent2">累積地</span></h2>
-
-    <div class="brain-mega">
-      <div class="brain-num">
-        <div class="bn-val">+50%</div>
-        <div class="bn-lab"><b style="color:var(--ink)">2024 vs 2016</b><br>解剖樣本中，大腦微塑膠濃度增加</div>
-        <div class="bn-src">▸ Nihart et al. 2025</div>
-      </div>
-      <div class="brain-num">
-        <div class="bn-val">30 ×</div>
-        <div class="bn-lab"><b style="color:var(--ink)">大腦 vs 肝、腎</b><br>大腦的微塑膠濃度，是其他器官的 30 倍</div>
-        <div class="bn-src">▸ 「腦選擇性富集」現象</div>
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top:20px;gap:36px">
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;color:#7c3aed;font-size:0.78rem;letter-spacing:2px;margin-bottom:10px">▸ 進入大腦的三條路</div>
-        <ul class="mech-list">
-          <li><span class="mech-dot">1</span><div>穿越<b style="color:var(--ink)">血腦屏障</b>（奈米塑膠 &lt; 100 nm）</div></li>
-          <li><span class="mech-dot">2</span><div>引起<b style="color:var(--ink)">腦微血管阻塞</b>與血栓（Huang 2025）</div></li>
-          <li><span class="mech-dot">3</span><div>透過<b style="color:var(--ink)">腸-腦軸</b> IL-1β 發炎訊號（Yang 2023）</div></li>
-        </ul>
-      </div>
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;color:var(--warn);font-size:0.78rem;letter-spacing:2px;margin-bottom:10px">▸ 已被「關聯」的疾病（非因果）</div>
-        <p class="body-text" style="font-size:0.95rem">
-          <span class="tag warn">關聯</span><b style="color:var(--ink)">動脈硬化</b> · 心血管疾病<br>
-          <span class="tag warn" style="margin-top:6px;display:inline-block">關聯</span><b style="color:var(--ink)">帕金森氏症</b> · 神經退化<br>
-          <span class="tag" style="margin-top:6px;display:inline-block">證據</span>動物模型已證實神經行為異常
-        </p>
-        <p class="small-text" style="margin-top:10px"><span class="tag danger">注意</span>人體臨床因倫理限制，無法做對照實驗 ── 因果關係仍未確立。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 17 (NEW): REMOVAL TECH + GAPS ========== -->
-<section class="slide" data-slide="17" data-section="維持注意・學術深化">
-  <div class="slide-inner">
-    <div class="kicker academic">ACADEMIC ／ Removal Technology Frontier 2024-2026</div>
-    <h2 class="slide-title">能撈出來嗎？<span class="accent">科技正在追</span></h2>
-    <p class="body-text">三類新興吸附材料，在實驗室移除率都 &gt; 90%。但能不能用在「真正的食物」？還在驗證。</p>
-
-    <div class="tech-grid">
-      <div class="tech-card">
-        <div class="tc-label">01 ／ 磁性奈米</div>
-        <div class="tc-title">Fe₃O₄@C12</div>
-        <div class="tc-eff">92%</div>
-        <div class="tc-body">十二酸修飾鐵氧體 ─ 可在汽水、瓶裝水中撈出 PS 微塑膠（Wang 2023）。</div>
-      </div>
-      <div class="tech-card">
-        <div class="tc-label">02 ／ MOF 框架</div>
-        <div class="tc-title">2D MOF@C@FeO</div>
-        <div class="tc-eff">100%</div>
-        <div class="tc-body">金屬有機框架 + 磁性核心 ─ 1 小時內 100% 移除 1μm PS（Haris 2023）。</div>
-      </div>
-      <div class="tech-card">
-        <div class="tc-label">03 ／ 生物海綿</div>
-        <div class="tc-title">ChNFs/Q-KL hydrogel</div>
-        <div class="tc-eff">99.9%</div>
-        <div class="tc-body">甲殼素奈米纖維 + 木質素 ─ 食品安全、可回收（Jung 2025）。</div>
-      </div>
-    </div>
-
-    <div style="margin-top:20px">
-      <div style="font-family:'JetBrains Mono',monospace;color:var(--warn);font-size:0.8rem;letter-spacing:2px;margin-bottom:10px">▸ 但研究還有四個缺口</div>
-      <div class="gap-list">
-        <div class="gap-item"><div class="gap-no">GAP 01</div><div class="gap-txt">檢測方法不統一 ── 跨研究數據難比較</div></div>
-        <div class="gap-item"><div class="gap-no">GAP 02</div><div class="gap-txt">幾乎都在純水實驗 ── 真食物（油、蛋白質）效果未知</div></div>
-        <div class="gap-item"><div class="gap-no">GAP 03</div><div class="gap-txt">慢性、低劑量、跨世代人體數據幾乎沒有</div></div>
-        <div class="gap-item"><div class="gap-no">GAP 04</div><div class="gap-txt">「塑膠＋污染物」一起去除的技術，剛起步</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 18: ANTHOCYANIN ========== -->
-<section class="slide" data-slide="18" data-section="喚起行動">
-  <div class="slide-inner">
-    <div class="kicker">DEFENSE ／ 花青素的可能性</div>
-    <h2 class="slide-title">飲食裡的<span class="accent2">天然盾牌</span>？</h2>
-    <p class="body-text">UC Davis 動物實驗中，補充<b style="color:var(--ink)">花青素</b>的小鼠，肝酵素 ALT 上升幅度明顯較低。</p>
-
-    <div class="berry-grid">
-      <div class="berry">
-        <div class="b-emoji">🫐</div>
-        <div class="b-name">藍莓</div>
-        <div class="b-val">163</div>
-        <div class="b-unit">mg / 100g</div>
-      </div>
-      <div class="berry">
-        <div class="b-emoji">🍇</div>
-        <div class="b-name">黑加侖</div>
-        <div class="b-val">476</div>
-        <div class="b-unit">mg / 100g</div>
-      </div>
-      <div class="berry">
-        <div class="b-emoji">🍓</div>
-        <div class="b-name">草莓</div>
-        <div class="b-val">21</div>
-        <div class="b-unit">mg / 100g</div>
-      </div>
-      <div class="berry">
-        <div class="b-emoji">🍆</div>
-        <div class="b-name">紫色食物</div>
-        <div class="b-val">高</div>
-        <div class="b-unit">紫薯、紫米、紅鳳菜</div>
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top:24px;gap:32px">
-      <div style="background:rgba(45,156,95,0.05);border:1px solid rgba(45,156,95,0.2);border-radius:14px;padding:20px 24px">
-        <div style="color:var(--good);font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:2px;margin-bottom:6px">✓ 初步保護建議</div>
-        <div class="small-text" style="color:var(--ink-2)">成人每日 <b style="color:var(--good)">50 mg 花青素</b> ≈ 1 杯藍莓 / 半杯黑莓 / 1/4 顆茄子皮。</div>
-      </div>
-      <div style="background:rgba(217,117,0,0.05);border:1px solid rgba(217,117,0,0.2);border-radius:14px;padding:20px 24px">
-        <div style="color:var(--warn);font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:2px;margin-bottom:6px">⚠ 別過度解讀</div>
-        <div class="small-text" style="color:var(--ink-2)">這是<b style="color:var(--ink)">動物實驗</b>。<b style="color:var(--ink)">人類臨床</b>仍待證實，花青素不是「解藥」，是補強。</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 19: ACTION CHECKLIST ========== -->
-<section class="slide" data-slide="19" data-section="喚起行動">
-  <div class="slide-inner">
-    <div class="kicker">ACTION ／ 6 個減塑日常</div>
-    <h2 class="slide-title">明天起，你可以<span class="accent">先選一個</span></h2>
-
-    <div class="action-grid">
-      <div class="action-card">
-        <div class="ac-num">01</div>
-        <div class="ac-title">不鏽鋼水瓶</div>
-        <div class="ac-body">取代每天一瓶寶特瓶。一年省下 ≈ 400 次扭蓋摩擦。</div>
-      </div>
-      <div class="action-card">
-        <div class="ac-num">02</div>
-        <div class="ac-title">散裝茶葉 + 濾網</div>
-        <div class="ac-body">跳過尼龍三角茶包。便宜、好喝、低塑。</div>
-      </div>
-      <div class="action-card">
-        <div class="ac-num">03</div>
-        <div class="ac-title">玻璃 / 不鏽鋼便當盒</div>
-        <div class="ac-body">熱食千萬別裝塑膠盒。微波熱便當前先換容器。</div>
-      </div>
-      <div class="action-card">
-        <div class="ac-num">04</div>
-        <div class="ac-title">少嚼口香糖</div>
-        <div class="ac-body">想清新口氣 ▸ 改用無糖薄荷糖、口腔噴霧、漱口水。</div>
-      </div>
-      <div class="action-card">
-        <div class="ac-num">05</div>
-        <div class="ac-title">不微波塑膠</div>
-        <div class="ac-body">熱 + 油脂 = 塑膠釋放加速。改用瓷盤。</div>
-      </div>
-      <div class="action-card">
-        <div class="ac-num">06</div>
-        <div class="ac-title">多吃彩色蔬果</div>
-        <div class="ac-body">花青素、類胡蘿蔔素、多酚 ▸ 同時補抗氧化盾牌。</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 20: DECISION TREE ========== -->
-<section class="slide" data-slide="20" data-section="喚起行動">
-  <div class="slide-inner">
-    <div class="kicker">DECISION ／ 一個高中生的口渴情境</div>
-    <h2 class="slide-title">口渴時，<span class="accent">怎麼選</span>？</h2>
-
-    <div class="dtree">
-      <svg viewBox="0 0 1000 460" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="dt1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#006eb5" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#006eb5" stop-opacity="0.2"/>
-          </linearGradient>
-          <linearGradient id="dt2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c8155c" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#d97500" stop-opacity="0.2"/>
-          </linearGradient>
-          <linearGradient id="dt3" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#006eb5" stop-opacity="0.6"/>
-            <stop offset="100%" stop-color="#2d9c5f" stop-opacity="0.2"/>
-          </linearGradient>
-        </defs>
-        <line x1="500" y1="110" x2="180" y2="320" stroke="url(#dt1)" stroke-width="2"/>
-        <line x1="500" y1="110" x2="500" y2="320" stroke="url(#dt2)" stroke-width="2"/>
-        <line x1="500" y1="110" x2="820" y2="320" stroke="url(#dt3)" stroke-width="2"/>
-      </svg>
-
-      <div class="dtree-q">💧 我口渴了 ──</div>
-
-      <div class="dtree-leaf l1">
-        <div class="leaf-when">▸ 在學校</div>
-        <div class="leaf-title">飲水機 + 自帶水瓶</div>
-        <div class="leaf-body">最佳解。不鏽鋼瓶裝飲用水，零包裝塑膠、隨用隨補。</div>
-      </div>
-      <div class="dtree-leaf l2">
-        <div class="leaf-when">▸ 只有寶特瓶</div>
-        <div class="leaf-title">一次喝完 + 別重複扭</div>
-        <div class="leaf-body">次佳。減少反覆開蓋次數，喝完不要拿來重複裝水。</div>
-      </div>
-      <div class="dtree-leaf l3">
-        <div class="leaf-when">▸ 想喝熱的</div>
-        <div class="leaf-title">紙杯熱茶 + 散裝葉</div>
-        <div class="leaf-body">避開尼龍 / PP 三角茶包，紙茶包與散裝葉風險低很多。</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 21: SHARED RESPONSIBILITY ========== -->
-<section class="slide" data-slide="21" data-section="喚起行動">
-  <div class="slide-inner">
-    <div class="kicker">RESPONSIBILITY ／ EFSA：食安是共同責任</div>
-    <h2 class="slide-title">不只是<span class="accent2">你的事</span></h2>
-
-    <div class="resp-wrap">
-      <div class="resp-ring">
-        <div class="resp-center">
-          <div class="rc-num">4×</div>
-          <div class="rc-label">共同責任</div>
-        </div>
-
-        <div class="resp-q q1">
-          <div class="q-icon">個</div>
-          <div class="q-title">個人</div>
-          <div class="q-body">每日小選擇、知識更新</div>
-        </div>
-        <div class="resp-q q2">
-          <div class="q-icon">產</div>
-          <div class="q-title">產業</div>
-          <div class="q-body">替代材料、減少包裝塑膠</div>
-        </div>
-        <div class="resp-q q3">
-          <div class="q-icon">政</div>
-          <div class="q-title">政府</div>
-          <div class="q-body">監測標準、限塑政策、透明溝通</div>
-        </div>
-        <div class="resp-q q4">
-          <div class="q-icon">科</div>
-          <div class="q-title">科學家</div>
-          <div class="q-body">人類臨床、長期追蹤、新檢測法</div>
-        </div>
-      </div>
-    </div>
-
-    <p class="small-text" style="text-align:center;margin-top:8px"><span class="tag">EFSA</span>「過度的『理所當然信任』，反而會讓忽略基礎知識的風險上升。」</p>
-  </div>
-</section>
-
-<!-- ========== SLIDE 22: CLOSING + CTA ========== -->
-<section class="slide" data-slide="22" data-section="喚起行動">
-  <div class="slide-inner">
-    <div class="kicker">CLOSE ／ 今天的小行動</div>
-    <h2 class="slide-title">本週，<span class="accent">挑一項試試看</span></h2>
-
-    <div class="final-grid">
-      <div>
-        <p class="body-text" style="margin-bottom:14px">勾選你願意執行的減塑承諾（試試看點擊它）：</p>
-        <div class="check-list" id="checkList">
-          <div class="check-item"><div class="check-box"></div><div class="check-text">這週每天帶水瓶</div></div>
-          <div class="check-item"><div class="check-box"></div><div class="check-text">不再買三角茶包</div></div>
-          <div class="check-item"><div class="check-box"></div><div class="check-text">微波前換成瓷盤</div></div>
-          <div class="check-item"><div class="check-box"></div><div class="check-text">少吃口香糖</div></div>
-          <div class="check-item"><div class="check-box"></div><div class="check-text">餐盤上多一種顏色</div></div>
-          <div class="check-item"><div class="check-box"></div><div class="check-text">分享給家人 1 件事</div></div>
-        </div>
-      </div>
-
-      <div>
-        <div class="reflect-box">
-          <div style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:0.78rem;letter-spacing:2px;margin-bottom:14px">▸ 延伸思考</div>
-          <div class="reflect-q">如果「便宜」「方便」「健康」只能選兩個，<br>&nbsp;&nbsp;&nbsp;你會放掉哪一個？</div>
-          <div class="reflect-q">為什麼歐洲人擔憂上升，但<br>&nbsp;&nbsp;&nbsp;台灣 / 美國的政策跟得上嗎？</div>
-          <div class="reflect-q">花青素是「解藥」還是「補強」？<br>&nbsp;&nbsp;&nbsp;它的角色和疫苗有什麼不同？</div>
-        </div>
-
-        <div style="margin-top:22px;padding:14px 16px;background:rgba(0,110,181,0.06);border-left:3px solid var(--accent);border-radius:0 10px 10px 0">
-          <div style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:0.85rem;letter-spacing:1.5px;margin-bottom:6px">▸ 下一頁</div>
-          <div style="font-size:1rem;color:var(--ink-2)">完整參考資料（科普報導 × 學術文獻 × URL / DOI）</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SLIDE 23: REFERENCES ========== -->
-<section class="slide" data-slide="23" data-section="參考資料">
-  <div class="slide-inner">
-    <div class="kicker">REFERENCES</div>
-    <h2 class="slide-title">資料來源</h2>
-
-    <div style="display:grid;grid-template-columns:1.05fr 1fr;gap:28px;margin-top:18px">
-      <!-- ============ A. 科普報導 ============ -->
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:0.9rem;letter-spacing:2px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--card-border)">▸ A. 科普報導 ─ Popular Articles</div>
-
-        <div style="margin-bottom:12px;padding:12px 14px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;box-shadow:0 1px 3px rgba(13,16,36,0.04)">
-          <div style="display:flex;gap:10px;align-items:flex-start">
-            <div style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:700;font-size:0.95rem;flex-shrink:0;padding-top:2px">[1]</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:0.98rem;color:var(--ink);font-weight:700;line-height:1.35;margin-bottom:4px">動物實驗證實肝損傷！微塑膠危機滲入日常飲食與飲品</div>
-              <div style="font-size:0.86rem;color:var(--ink-3);margin-bottom:4px">編輯部 (2025-08-06)・<i>FoodNEXT 食力</i></div>
-              <div style="font-family:'JetBrains Mono',monospace;color:var(--ink-4);font-size:0.78rem;word-break:break-all">foodnext.net/science/scsource/paper/6351102499</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-bottom:12px;padding:12px 14px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;box-shadow:0 1px 3px rgba(13,16,36,0.04)">
-          <div style="display:flex;gap:10px;align-items:flex-start">
-            <div style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:700;font-size:0.95rem;flex-shrink:0;padding-top:2px">[2]</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:0.98rem;color:var(--ink);font-weight:700;line-height:1.35;margin-bottom:4px">你每天吞下多少塑膠？嚼口香糖最多釋出 600 顆微塑膠！</div>
-              <div style="font-size:0.86rem;color:var(--ink-3);margin-bottom:4px">韋恩 (2025-06-10)・<i>韋恩的食農生活</i></div>
-              <div style="font-family:'JetBrains Mono',monospace;color:var(--ink-4);font-size:0.78rem;word-break:break-all">foodnext.net/column/columnist/paper/6731087851</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="padding:12px 14px;background:var(--card-bg);border:1px solid var(--card-border);border-radius:10px;box-shadow:0 1px 3px rgba(13,16,36,0.04)">
-          <div style="display:flex;gap:10px;align-items:flex-start">
-            <div style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:700;font-size:0.95rem;flex-shrink:0;padding-top:2px">[3]</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:0.98rem;color:var(--ink);font-weight:700;line-height:1.35;margin-bottom:4px">歐洲最新食品安全調查：「微塑膠」取代農藥成最大關注焦點</div>
-              <div style="font-size:0.86rem;color:var(--ink-3);margin-bottom:4px">編輯部 (2025-10-05)・<i>FoodNEXT 食力</i></div>
-              <div style="font-family:'JetBrains Mono',monospace;color:var(--ink-4);font-size:0.78rem;word-break:break-all">foodnext.net/news/newstrack/paper/6591117272</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ B. 學術文獻 ============ -->
-      <div>
-        <div style="font-family:'JetBrains Mono',monospace;color:#7c3aed;font-size:0.9rem;letter-spacing:2px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--card-border)">▸ B. 學術文獻 ─ Peer-Reviewed Paper</div>
-
-        <div style="padding:16px 18px;background:linear-gradient(135deg, rgba(124,58,237,0.06), rgba(200,21,92,0.04));border:1px solid rgba(124,58,237,0.18);border-radius:12px">
-          <div style="font-family:'JetBrains Mono',monospace;color:#7c3aed;font-size:0.85rem;letter-spacing:1.5px;margin-bottom:8px">[4] PRIMARY ACADEMIC REVIEW</div>
-          <div style="font-size:1.05rem;color:var(--ink);font-weight:700;line-height:1.4;margin-bottom:10px">Microplastic co-pollution in food systems: interaction mechanisms, migration, removal technologies, and environmental linkages</div>
-          <div style="font-size:0.92rem;color:var(--ink-2);line-height:1.55;margin-bottom:12px">
-            <b style="color:var(--ink)">Feng, J.</b>, &amp; <b style="color:var(--ink)">Chen, Y. P.</b><br>
-            Dalian Polytechnic University, China<br>
-            <i>Food Research International</i>, vol. <b>238</b>, article 119443<br>
-            Elsevier (2026)
-          </div>
-          <div style="padding:8px 10px;background:rgba(13,16,36,0.04);border-radius:6px">
-            <div style="font-family:'JetBrains Mono',monospace;color:#7c3aed;font-size:0.8rem;letter-spacing:1.5px;margin-bottom:3px">DOI</div>
-            <div style="font-family:'JetBrains Mono',monospace;color:var(--ink-2);font-size:0.9rem;word-break:break-all">10.1016/j.foodres.2026.119443</div>
-          </div>
-        </div>
-
-        <div style="margin-top:14px;padding:12px 14px;background:rgba(0,110,181,0.05);border-left:3px solid var(--accent);border-radius:0 8px 8px 0">
-          <div style="font-family:'JetBrains Mono',monospace;color:var(--accent);font-size:0.85rem;letter-spacing:1.5px;margin-bottom:6px">▸ 投影片內提及的延伸文獻</div>
-          <div style="font-size:0.88rem;color:var(--ink-2);line-height:1.65">
-            ・<b style="color:var(--ink)">Nihart et al.</b> (2025) — 人體腦組織微塑膠累積<br>
-            ・<b style="color:var(--ink)">Qian et al.</b> (2024) — 高光譜瓶裝水檢測<br>
-            ・<b style="color:var(--ink)">UC Davis</b> (2025 ASN) — 小鼠 7 週肝損傷實驗<br>
-            ・<b style="color:var(--ink)">EFSA Eurobarometer</b> (2025) — 歐盟食安認知<br>
-            ・<b style="color:var(--ink)">Mo et al.</b> (2025) — 重金屬吸附排行
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--card-border);text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--ink-4);letter-spacing:1.5px">
-      tai-shengyeh.github.io/microplastic-teaching/
-    </div>
-  </div>
-</section>
+</footer>
 
 <script>
-(function(){
-  const slides = document.querySelectorAll('.slide');
-  const total = slides.length;
-  let current = 0;
-  let chartInstance = null;
-  let metalChartInstance = null;
+/* ============ 共用 ============ */
+function fmt(n){ return Math.round(n).toLocaleString('en-US'); }
 
-  function update(){
-    slides.forEach((s,i)=>{
-      s.classList.toggle('active', i===current);
-    });
-    const cur = slides[current];
-    const section = cur.dataset.section || '';
-    document.getElementById('section-tag').textContent = section;
-    document.getElementById('progress').style.width = ((current+1)/total*100)+'%';
-    document.getElementById('pageInfo').innerHTML = '<b>'+String(current+1).padStart(2,'0')+'</b> / '+String(total).padStart(2,'0');
-
-    // Lazy init Chart.js on slide 6 (index 5)
-    if(current === 5 && !chartInstance){
-      initBevChart();
-    }
-    // Lazy init heavy-metal chart on new slide 14 (index 13)
-    if(current === 13 && !metalChartInstance){
-      initMetalChart();
-    }
-  }
-
-  function next(){ if(current < total-1){ current++; update(); } }
-  function prev(){ if(current > 0){ current--; update(); } }
-
-  document.addEventListener('keydown', e=>{
-    if(e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { next(); e.preventDefault(); }
-    else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { prev(); e.preventDefault(); }
-    else if(e.key === 'f' || e.key === 'F') {
-      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
-      else document.exitFullscreen();
-    }
-    else if(e.key === 'Home'){ current = 0; update(); }
-    else if(e.key === 'End'){ current = total-1; update(); }
-  });
-
-  document.addEventListener('click', e=>{
-    // Don't navigate if click is on interactive element
-    if(e.target.closest('button, th, .check-item, a, input')) return;
-    const x = e.clientX;
-    if(x > window.innerWidth * 0.7) next();
-    else if(x < window.innerWidth * 0.3) prev();
-  });
-
-  // === Slide 2: Guess interaction ===
-  document.querySelectorAll('#guessGrid .guess-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const correct = btn.dataset.correct === 'true';
-      document.querySelectorAll('#guessGrid .guess-btn').forEach(b=>{
-        if(b.dataset.correct === 'true') b.classList.add('correct');
-        else b.classList.add('wrong');
-      });
-      document.getElementById('guessReveal').classList.add('show');
-    });
-  });
-
-  // === Slide 8: Dot matrix 99% ===
-  (function(){
-    const grid = document.getElementById('dotMatrix');
-    if(!grid) return;
-    // 182 dots, 180 filled, 2 unfilled (random positions)
-    const total = 182;
-    const unfilled = [42, 137]; // arbitrary positions
-    for(let i=0; i<total; i++){
-      const dot = document.createElement('div');
-      dot.className = 'dot' + (unfilled.includes(i) ? '' : ' filled');
-      grid.appendChild(dot);
-    }
-  })();
-
-  // === Sortable tables (Slide 12 + Slide 15) ===
-  function makeSortable(tableId){
-    const table = document.getElementById(tableId);
-    if(!table) return;
-    const tbody = table.querySelector('tbody');
-    let sortState = {key:null, dir:1};
-    table.querySelectorAll('th').forEach(th=>{
-      th.addEventListener('click', ()=>{
-        const key = th.dataset.key;
-        const type = th.dataset.type;
-        const idx = Array.from(th.parentElement.children).indexOf(th);
-        if(sortState.key === key) sortState.dir = -sortState.dir;
-        else { sortState.key = key; sortState.dir = 1; }
-        table.querySelectorAll('th').forEach(t=>t.classList.remove('sort-asc','sort-desc'));
-        th.classList.add(sortState.dir > 0 ? 'sort-asc' : 'sort-desc');
-        const rows = Array.from(tbody.querySelectorAll('tr'));
-        rows.sort((a,b)=>{
-          let va = a.children[idx].textContent.trim();
-          let vb = b.children[idx].textContent.trim();
-          if(type === 'num'){
-            va = parseFloat(va);
-            vb = parseFloat(vb);
-            return (va - vb) * sortState.dir;
-          }
-          return va.localeCompare(vb, 'zh-Hant') * sortState.dir;
-        });
-        rows.forEach(r=>tbody.appendChild(r));
-      });
-    });
-  }
-  makeSortable('compareTable');
-  makeSortable('dataTable');
-
-  // === Slide 17: Checklist ===
-  document.querySelectorAll('#checkList .check-item').forEach(item=>{
-    item.addEventListener('click', ()=>{
-      item.classList.toggle('checked');
-    });
-  });
-
-  // === Slide 14: Heavy-metal adsorption chart ===
-  function initMetalChart(){
-    const ctx = document.getElementById('metalChart');
-    if(!ctx) return;
-    metalChartInstance = new Chart(ctx, {
-      type:'bar',
-      data:{
-        labels:['Nylon','PP','PVC','PE','PS','PA'],
-        datasets:[{
-          label:'重金屬吸附量 (μg/g)',
-          data:[1554, 1357, 1278, 1087, 269, 219],
-          backgroundColor:[
-            'rgba(200,21,92,0.75)',
-            'rgba(220,90,130,0.65)',
-            'rgba(217,117,0,0.6)',
-            'rgba(217,117,0,0.6)',
-            'rgba(0,110,181,0.55)',
-            'rgba(70,170,200,0.45)'
-          ],
-          borderColor:[
-            '#c8155c','#dc5a82','#d97500','#d97500','#006eb5','#46aac8'
-          ],
-          borderWidth:1.5,
-          borderRadius:6
-        }]
-      },
-      options:{
-        indexAxis:'y',
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{
-          legend:{display:false},
-          tooltip:{
-            callbacks:{
-              label: ctx => ctx.parsed.x + ' μg/g'
-            }
-          }
-        },
-        scales:{
-          x:{
-            beginAtZero:true,
-            ticks:{ color:'#3a4561', font:{size:11} },
-            grid:{ color:'rgba(13,16,36,0.06)' },
-            title:{ display:true, text:'吸附量 (μg/g)', color:'#6a7894', font:{size:11} }
-          },
-          y:{
-            ticks:{ color:'#0d1024', font:{size:13, weight:700} },
-            grid:{ display:false }
-          }
-        }
+/* ============ 討論→揭曉 ============ */
+document.querySelectorAll('[data-reveal]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (btn.dataset.poll){
+      const fb = document.getElementById('policyFeedback');
+      if (fb){
+        const map = {
+          now: '🎯 你選「立刻訂標準」——和論文的第一條政策建議一致！',
+          monitor: '🎯 你選「先強制監測」——這正是論文建議的第二條路！',
+          wait: '🤔 你選「等因果證據」——嚴謹！但看看科學家怎麼用「預防原則」回應這個立場……'
+        };
+        fb.textContent = map[btn.dataset.poll] || '';
       }
+      try { window.mplabSendVote?.('policy', btn.dataset.poll)?.catch(()=>{}); } catch(e){}
+    }
+    const ids = btn.dataset.reveal.split(',');
+    let first = null;
+    ids.forEach(id => {
+      const t = document.getElementById(id.trim());
+      if (t){ t.hidden = false; if (!first) first = t; }
     });
-  }
-
-  // === Slide 6: Bev chart ===
-  function initBevChart(){
-    const ctx = document.getElementById('bevChart');
-    if(!ctx) return;
-    chartInstance = new Chart(ctx, {
-      type:'bar',
-      data:{
-        labels:['0 次','5 次','10 次','15 次','20 次'],
-        datasets:[
-          {
-            label:'可口可樂',
-            data:[4, 12, 22, 33, 44],
-            backgroundColor:'rgba(0,110,181,0.6)',
-            borderColor:'#006eb5',
-            borderWidth:1.5,
-            borderRadius:6,
-          },
-          {
-            label:'舒味思',
-            data:[6, 18, 31, 47, 62],
-            backgroundColor:'rgba(200,21,92,0.6)',
-            borderColor:'#c8155c',
-            borderWidth:1.5,
-            borderRadius:6,
-          }
-        ]
-      },
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-        plugins:{
-          legend:{
-            position:'top',
-            labels:{
-              color:'#0d1024',
-              font:{family:"'Noto Sans TC'", size:13}
-            }
-          },
-          tooltip:{
-            callbacks:{
-              label: ctx => ctx.dataset.label+': '+ctx.parsed.y+' 顆 / L'
-            }
-          }
-        },
-        scales:{
-          x:{
-            ticks:{ color:'#3a4561', font:{size:11} },
-            grid:{ color:'rgba(13,16,36,0.06)' },
-            title:{ display:true, text:'累積開瓶次數', color:'#6a7894', font:{size:11} }
-          },
-          y:{
-            beginAtZero:true,
-            ticks:{ color:'#3a4561', font:{size:11} },
-            grid:{ color:'rgba(13,16,36,0.06)' },
-            title:{ display:true, text:'微塑膠 顆/公升', color:'#6a7894', font:{size:11} }
-          }
-        }
+    const gate = btn.closest('.reveal-gate');
+    if (gate){
+      const actions = gate.querySelector('.gate-actions');
+      if (actions){
+        const done = document.createElement('p');
+        done.className = 'gate-done';
+        done.textContent = '✅ 已揭曉——往下看！';
+        actions.replaceWith(done);
       }
-    });
-  }
+    } else {
+      btn.remove();
+    }
+    if (first && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      first.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+    if (ids.includes('u2-answer')) animateBars(document.getElementById('u2-answer'));
+  });
+});
 
-  update();
-})();
+function animateBars(scope){
+  (scope || document).querySelectorAll('.bar-fill[data-w]').forEach(b => {
+    requestAnimationFrame(()=> requestAnimationFrame(()=> { b.style.width = b.dataset.w + '%'; }));
+  });
+}
+
+/* ============ 單元 2：瓶裝水投票 ============ */
+document.querySelectorAll('#bottleGuess .guess-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const choice = btn.dataset.choice;
+    document.querySelectorAll('#bottleGuess .guess-btn').forEach(b => { b.disabled = true; });
+    btn.classList.add('chosen');
+    const fb = document.getElementById('bottleFeedback');
+    fb.textContent = choice === 'glass'
+      ? '🎯 你猜「玻璃瓶」——答對了！但你知道為什麼嗎？'
+      : '😲 你猜「' + (choice === 'single' ? '全新 PET 瓶' : '重複使用 PET 瓶') + '」——結果出乎意料……';
+    try { window.mplabSendVote?.('bottle', choice)?.catch(()=>{}); } catch(e){}
+    const ans = document.getElementById('u2-answer');
+    ans.hidden = false;
+    animateBars(ans);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      ans.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+
+/* ============ 實驗室 A：攝入計算機 ============ */
+const CALC = [
+  { id:'cWater', unit:'瓶', rate:1590 },  // 2,649 顆/L × 0.6 L
+  { id:'cBoba',  unit:'杯', rate:22 },    // 0–43 顆/杯，取中位
+  { id:'cTuna',  unit:'份', rate:692 },   // 顆/100 g
+  { id:'cTea',   unit:'g',  rate:350 },   // 200–500 顆/g，取中位
+  { id:'cGum',   unit:'片', rate:300 },   // 100–600 顆/片，取中位
+];
+const WEF_LO = 78000, WEF_HI = 211000;
+
+function calcUpdate(){
+  let total = 0;
+  CALC.forEach(item => {
+    const el = document.getElementById(item.id);
+    const n = +el.value;
+    const c = n * item.rate;
+    total += c;
+    document.getElementById(item.id + '-val').textContent = n + ' ' + item.unit;
+    document.getElementById(item.id + '-c').textContent = c > 0 ? '≈ ' + fmt(c) + ' 顆' : '';
+  });
+  const teabag = document.getElementById('cTeabag').checked;
+  const micro  = document.getElementById('cMicrowave').checked;
+  const boom = teabag || micro;
+
+  const dayEl = document.getElementById('cDay');
+  const yearEl = document.getElementById('cYear');
+  const ratioEl = document.getElementById('cRatio');
+  const verdict = document.getElementById('cVerdict');
+  const dayBox = document.getElementById('cDay-box');
+
+  if (boom){
+    dayEl.textContent = '💥 >1,000,000,000';
+    yearEl.textContent = '爆表';
+    ratioEl.textContent = '>10⁶ 倍';
+    dayBox.style.borderColor = 'var(--pla)';
+    verdict.className = 'verdict boom';
+    const which = [teabag && '尼龍三角茶包', micro && '塑膠容器微波'].filter(Boolean).join('＋');
+    verdict.textContent = '💣 地雷引爆（' + which + '）！這一項的釋放量是其他所有項目加起來的數萬倍以上——「加熱 × 塑膠」就是頭號地雷。取消勾選看看差多少。';
+    return;
+  }
+  dayBox.style.borderColor = '';
+  const annual = total * 365;
+  dayEl.textContent = fmt(total);
+  yearEl.textContent = fmt(annual);
+  const mid = (WEF_LO + WEF_HI) / 2;
+  ratioEl.textContent = (annual / mid).toFixed(2) + ' 倍';
+  verdict.className = 'verdict' + (annual < WEF_LO ? ' win' : '');
+  if (total === 0){
+    verdict.textContent = '今天零攝入？別高興太早——空氣中的纖維、食鹽、蔬菜還沒算進來。拉動滑桿試試各種情境。';
+  } else if (annual > WEF_HI){
+    verdict.textContent = '⚠ 年換算 ' + fmt(annual) + ' 顆，高於全球平均估計上限（211,000）。看看右邊「≈ 顆」——哪一項貢獻最大？先砍它。';
+  } else if (annual >= WEF_LO){
+    verdict.textContent = '你落在全球平均估計區間（78,000–211,000 顆/年）內。想變成「低塑模範生」？試試把瓶裝水歸零。';
+  } else {
+    verdict.textContent = '✅ 低於全球平均估計！但記住：這裡只算了五種食物，估算值僅供教學。';
+  }
+}
+CALC.forEach(item => document.getElementById(item.id).addEventListener('input', calcUpdate));
+document.getElementById('cTeabag').addEventListener('change', calcUpdate);
+document.getElementById('cMicrowave').addEventListener('change', calcUpdate);
+document.querySelectorAll('.preset[data-c]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const v = btn.dataset.c.split(',').map(Number);
+    CALC.forEach((item, i) => { document.getElementById(item.id).value = v[i]; });
+    document.getElementById('cTeabag').checked = !!v[5];
+    document.getElementById('cMicrowave').checked = !!v[6];
+    calcUpdate();
+  });
+});
+
+/* ============ 實驗室 B：吸附排行榜 ============ */
+const POLYMERS = [
+  { k:'PE',  name:'聚乙烯 PE',  hint:'塑膠袋、瓶蓋',   val:1087 },
+  { k:'PS',  name:'保麗龍 PS',  hint:'外帶湯杯、緩衝材', val:269 },
+  { k:'PA',  name:'尼龍 PA',    hint:'三角茶包、絲襪',  val:1554 },
+  { k:'PVC', name:'PVC',        hint:'水管、保鮮膜',   val:1278 },
+  { k:'PP',  name:'聚丙烯 PP',  hint:'吸管、便當盒',   val:1357 },
+];
+const rankTruth = POLYMERS.slice().sort((a,b) => b.val - a.val).map(p => p.k);
+let rankPicks = [];
+
+function rankInit(){
+  rankPicks = [];
+  const pool = document.getElementById('rankPool');
+  pool.innerHTML = '';
+  POLYMERS.forEach(p => {
+    const b = document.createElement('button');
+    b.className = 'rank-card';
+    b.type = 'button';
+    b.dataset.k = p.k;
+    b.innerHTML = '<b>' + p.name + '</b><small>' + p.hint + '</small>';
+    b.addEventListener('click', () => rankPick(b, p));
+    pool.appendChild(b);
+  });
+  const res = document.getElementById('rankResult');
+  res.hidden = true;
+  document.getElementById('rankBars').innerHTML = '';
+  const v = document.getElementById('rankVerdict');
+  v.className = 'verdict';
+  v.textContent = '從「你覺得最會吸附的」開始點……（已選 0 / 5）';
+}
+
+function rankPick(btn, p){
+  if (btn.disabled) return;
+  rankPicks.push(p.k);
+  btn.disabled = true;
+  const badge = document.createElement('span');
+  badge.className = 'rank-badge';
+  badge.textContent = rankPicks.length;
+  btn.appendChild(badge);
+  const v = document.getElementById('rankVerdict');
+  if (rankPicks.length < POLYMERS.length){
+    v.textContent = '繼續——下一個是第 ' + (rankPicks.length + 1) + ' 名（已選 ' + rankPicks.length + ' / 5）';
+    return;
+  }
+  // 對答案
+  let hit = 0;
+  rankPicks.forEach((k, i) => { if (rankTruth[i] === k) hit++; });
+  v.className = 'verdict' + (hit >= 4 ? ' win' : '');
+  v.textContent = hit === 5 ? '🏆 5 個名次全對！你已經摸透官能基的化學了。'
+    : hit >= 3 ? '✅ 猜對 ' + hit + ' 個名次！看下面的實測數據，找出誰被你排錯。'
+    : '💪 猜對 ' + hit + ' 個名次。提示：關鍵不是「常見程度」，是表面官能基。看數據！';
+  const bars = document.getElementById('rankBars');
+  const maxV = Math.max(...POLYMERS.map(p => p.val));
+  POLYMERS.slice().sort((a,b) => b.val - a.val).forEach((p, i) => {
+    const yourRank = rankPicks.indexOf(p.k) + 1;
+    const ok = yourRank === i + 1;
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML =
+      '<div class="bar-name">' + (i+1) + '. ' + p.name + '</div>' +
+      '<div class="bar-track"><div class="bar-fill' + (i===0 ? ' pla' : '') + '" data-w="' + Math.round(p.val/maxV*100) + '"></div></div>' +
+      '<div class="bar-val num">' + p.val.toLocaleString() + ' μg/g ' + (ok ? '✓' : '（你排第' + yourRank + '）') + '</div>';
+    bars.appendChild(row);
+  });
+  const res = document.getElementById('rankResult');
+  res.hidden = false;
+  animateBars(res);
+}
+document.getElementById('rankReset').addEventListener('click', rankInit);
+rankInit();
+
+/* ============ 行動清單（記住勾選） ============ */
+function readChecks(){ try { return JSON.parse(localStorage.getItem('mplab-checks') || '{}'); } catch(e){ return {}; } }
+function writeChecks(o){ try { localStorage.setItem('mplab-checks', JSON.stringify(o)); } catch(e){} }
+function updateCheckCount(){
+  const n = document.querySelectorAll('#checkList .check-item.done').length;
+  document.getElementById('checkCount').textContent =
+    n === 0 ? '' : '✊ 你許下了 ' + n + ' 個承諾' + (n >= 3 ? '——超過三個，本週結束記得回來檢查達成率！' : '，先從一個做起就很棒。');
+}
+{
+  const saved = readChecks();
+  document.querySelectorAll('#checkList .check-item').forEach(item => {
+    if (saved[item.dataset.k]) item.classList.add('done');
+    item.addEventListener('click', () => {
+      item.classList.toggle('done');
+      const o = readChecks();
+      o[item.dataset.k] = item.classList.contains('done');
+      writeChecks(o);
+      updateCheckCount();
+    });
+  });
+  updateCheckCount();
+}
+
+/* ============ 分頁 ============ */
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected','false'));
+    document.querySelectorAll('.tabpanel').forEach(p => p.hidden = true);
+    tab.setAttribute('aria-selected','true');
+    document.getElementById(tab.dataset.panel).hidden = false;
+  });
+});
+
+/* copy buttons */
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const el = document.getElementById(btn.dataset.copy);
+    try {
+      await navigator.clipboard.writeText(el.textContent);
+      btn.textContent = '已複製 ✓';
+      setTimeout(()=> btn.textContent = '複製', 1600);
+    } catch(e){ btn.textContent = '請手動複製'; }
+  });
+});
+
+/* ============ 測驗 ============ */
+const QUIZ = [
+  { q:'「微塑膠」的定義尺寸是——', opts:['大於 5 公分的塑膠','5 mm 以下、0.1 μm 以上的塑膠顆粒','只有肉眼看不見的塑膠','只有球形的塑膠珠'], ans:1,
+    expl:'微塑膠：0.1–5000 μm（上限 5 mm），形狀含碎片、纖維、球體、薄片等；小於 0.1 μm 的叫奈米塑膠。' },
+  { q:'奈米塑膠被認為潛在危害更大，主要原因是——', opts:['它的顏色比較深','它比較重，會沉在胃裡','它小到能穿過腸道屏障甚至血腦屏障','它含糖量比較高'], ans:2,
+    expl:'奈米塑膠（< 0.1 μm）比紅血球小數十倍，可跨越腸道屏障、血氣屏障與血腦屏障，進入血液與器官。' },
+  { q:'德國研究測三種瓶裝水，每公升微塑膠最多的是——', opts:['全新 PET 瓶','重複使用 PET 瓶','玻璃瓶','三者完全一樣'], ans:2,
+    expl:'反直覺答案：玻璃瓶 6,292 顆/L > 重複 PET 4,889 > 全新 PET 2,649。塑膠瓶蓋與灌裝管線才是主要來源。' },
+  { q:'2024 年用超光譜拉曼重測瓶裝水，發現每公升約 24 萬顆微粒，其中 90% 是——', opts:['玻璃碎屑','奈米塑膠','礦物質結晶','細菌'], ans:1,
+    expl:'傳統方法看不到奈米級顆粒。改用能偵測奈米塑膠的超光譜受激拉曼散射成像後，數字暴增——你看不見的才是大宗。' },
+  { q:'PP 塑膠容器微波加熱 3 分鐘，每平方公分表面約釋出——', opts:['20 顆微塑膠','2 萬顆','20 億顆奈米塑膠','完全不會釋放'], ans:2,
+    expl:'約 20 億顆奈米塑膠＋400 萬顆微塑膠／cm²。「加熱 × 塑膠」是釋放量最大的頭號地雷——微波前換瓷盤。' },
+  { q:'論文說微塑膠是「共污染載體」，意思是——', opts:['它會讓食物變色','它吸附重金屬、抗生素、微生物，帶著一起進入人體','它只在受污染的工廠出現','它和其他垃圾混在一起'], ans:1,
+    expl:'微塑膠表面積大、又有官能基，像海綿一樣吸附污染物「乘客」，沿食物鏈載進人體——這就是「污染計程車」。' },
+  { q:'五種常見塑膠中，對重金屬吸附力最強的是——', opts:['保麗龍 PS','聚乙烯 PE','尼龍 PA','聚丙烯 PP'], ans:2,
+    expl:'尼龍（1,554 μg/g）> PP（1,357）> PVC（1,278）> PE（1,087）> PS（269）。尼龍的醯胺基最會與重金屬形成氫鍵。' },
+  { q:'「塑膠圈（plastisphere）」指的是——', opts:['塑膠工廠的產業聚落','海上漂浮的塑膠垃圾帶','微塑膠表面形成的微生物生物膜生態圈','塑膠回收的循環經濟'], ans:2,
+    expl:'微塑膠表面的生物膜可窩藏沙門氏菌、李斯特菌等病原菌，還是抗藥性基因（ARG）水平轉移的熱點。' },
+  { q:'關於微塑膠的「法定安全標準」，目前的現況是——', opts:['WHO 已訂出每日耐受攝取量','各國都有食品限量標準','還沒有任何權威機構訂出限量或耐受量標準','台灣有、外國沒有'], ans:2,
+    expl:'因為方法學不統一、慢性暴露數據不足，目前全球都還沒有微塑膠的 TDI 或法定限量——這也是論文的主要政策呼籲。' },
+  { q:'流行病學發現微塑膠與某些疾病「相關」。正確的解讀是——', opts:['微塑膠已被證明導致這些疾病','相關不等於因果，還需要更多證據','這些研究都是假的','只要不吃海鮮就完全沒風險'], ans:1,
+    expl:'「相關」只代表同時出現的趨勢；人體無法做對照實驗，因果尚未確立。誠實面對不確定性，正是科學的態度。' },
+];
+
+const quizBox = document.getElementById('quiz-box');
+QUIZ.forEach((item, qi) => {
+  const div = document.createElement('div');
+  div.className = 'q';
+  div.id = 'q' + qi;
+  let html = '<h3><span class="qnum num">Q' + String(qi+1).padStart(2,'0') + '</span>' + item.q + '</h3><div class="opts">';
+  item.opts.forEach((opt, oi) => {
+    html += '<label><input type="radio" name="q' + qi + '" value="' + oi + '"><span>' + opt + '</span></label>';
+  });
+  html += '</div><div class="expl">💡 ' + item.expl + '</div>';
+  div.innerHTML = html;
+  quizBox.appendChild(div);
+});
+
+function readBest(){ try { return +(localStorage.getItem('mplab-best') || 0); } catch(e){ return 0; } }
+function writeBest(v){ try { localStorage.setItem('mplab-best', String(v)); } catch(e){} }
+function showBest(){
+  const b = readBest();
+  document.getElementById('quiz-best').textContent = b > 0 ? '個人最佳成績：' + b + ' / 10' : '';
+}
+showBest();
+
+document.getElementById('quiz-submit').addEventListener('click', () => {
+  let score = 0;
+  QUIZ.forEach((item, qi) => {
+    const qEl = document.getElementById('q' + qi);
+    qEl.classList.add('graded');
+    const labels = qEl.querySelectorAll('.opts label');
+    const chosen = qEl.querySelector('input:checked');
+    labels.forEach((lb, oi) => {
+      lb.classList.remove('correct','wrong');
+      if (oi === item.ans) lb.classList.add('correct');
+    });
+    if (chosen){
+      const v = +chosen.value;
+      if (v === item.ans) score++;
+      else labels[v].classList.add('wrong');
+    }
+  });
+  const result = document.getElementById('quiz-result');
+  result.style.display = 'block';
+  document.getElementById('quiz-score').textContent = score;
+  const msg = document.getElementById('quiz-msg');
+  if (score >= 9) msg.textContent = '🏆 首席微塑膠偵探！連「相關 vs 因果」都難不倒你。';
+  else if (score >= 6) msg.textContent = '✅ 及格！複習一下答錯的解析，再挑戰滿分。';
+  else msg.textContent = '💪 再逛一次單元 2、3、5，答案都在裡面。';
+  if (score > readBest()){ writeBest(score); }
+  showBest();
+  window.__lastScore = score;
+  document.getElementById('quiz-reset').style.display = 'inline-block';
+  result.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+/* 成績上傳（選填座號，只送分數，不送姓名） */
+document.getElementById('score-send').addEventListener('click', async () => {
+  const seat = document.getElementById('seat-input').value.trim();
+  const status = document.getElementById('score-status');
+  if (!seat){ status.textContent = '請先輸入班級座號（不用寫名字）'; return; }
+  if (typeof window.__lastScore !== 'number'){ status.textContent = '請先交卷再上傳'; return; }
+  status.textContent = '上傳中……';
+  try {
+    await window.mplabSendScore(seat, window.__lastScore);
+    status.textContent = '✅ 已上傳！老師的螢幕看得到了';
+    document.getElementById('score-send').disabled = true;
+  } catch(e){
+    status.textContent = '⚠ 無法連線，請口頭回報老師你的分數';
+  }
+});
+
+document.getElementById('quiz-reset').addEventListener('click', () => {
+  QUIZ.forEach((_, qi) => {
+    const qEl = document.getElementById('q' + qi);
+    qEl.classList.remove('graded');
+    qEl.querySelectorAll('input').forEach(i => i.checked = false);
+    qEl.querySelectorAll('label').forEach(l => l.classList.remove('correct','wrong'));
+  });
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('q0').scrollIntoView({behavior:'smooth'});
+});
+
+/* 初始渲染 */
+calcUpdate();
+
+/* ============ 投影模式（放大字級＋強制淺色） ============ */
+const projBtn = document.getElementById('projBtn');
+function setProjector(on){
+  document.documentElement.classList.toggle('projector', on);
+  if (on) document.documentElement.dataset.theme = 'light';
+  else delete document.documentElement.dataset.theme;
+  projBtn.setAttribute('aria-pressed', String(on));
+  projBtn.textContent = on ? '🖥 投影模式：開' : '🖥 投影模式';
+}
+projBtn.addEventListener('click', () =>
+  setProjector(!document.documentElement.classList.contains('projector')));
+if (new URLSearchParams(location.search).get('projector') === '1') setProjector(true);
 </script>
-
+<script type="module">
+/* 雲端互動（投票統計、成績回收）——離線或載入失敗時，頁面其他功能完全不受影響 */
+try {
+  const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js');
+  const { getFirestore, addDoc, collection, serverTimestamp } =
+    await import('https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js');
+  const app = initializeApp({
+    apiKey: "AIzaSyCTLhRf7jcJH_AwUzbV4MawkrKNPrIVG5Y",
+    authDomain: "my-teaching-tools-517a0.firebaseapp.com",
+    projectId: "my-teaching-tools-517a0",
+    storageBucket: "my-teaching-tools-517a0.firebasestorage.app",
+    messagingSenderId: "244288457011",
+    appId: "1:244288457011:web:4b3ff8a846a6c50b169646"
+  });
+  const db = getFirestore(app);
+  window.mplabSendVote = (poll, choice) =>
+    addDoc(collection(db, 'mplab_votes'), { poll: String(poll), choice: String(choice), ts: serverTimestamp() });
+  window.mplabSendScore = (seat, score) =>
+    addDoc(collection(db, 'mplab_scores'), { seat: String(seat), score: Number(score), ts: serverTimestamp() });
+} catch(e){ /* 離線模式：投票與成績上傳停用，其餘功能照常 */ }
+</script>
 </body>
 </html>
