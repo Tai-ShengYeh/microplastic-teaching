@@ -508,7 +508,7 @@
           <div class="preset-row">
             <button class="preset" data-c="1,1,0,0,0,0,0">🥤 一般高中生的一天</button>
             <button class="preset" data-c="3,2,1,0,5,0,0">🍽 重度外食日</button>
-            <button class="preset" data-c="0,0,0,2,0,0,0">🌿 低塑模範生</button>
+            <button class="preset" data-c="0,0,0,1,0,0,0">🌿 低塑模範生</button>
           </div>
         </div>
         <div class="lab-right">
@@ -999,7 +999,7 @@ function calcUpdate(){
   } else if (annual > WEF_HI){
     verdict.textContent = '⚠ 年換算 ' + fmt(annual) + ' 顆，高於全球平均估計上限（211,000）。看看右邊「≈ 顆」——哪一項貢獻最大？先砍它。';
   } else if (annual >= WEF_LO){
-    verdict.textContent = '你落在全球平均估計區間（78,000–211,000 顆/年）內。想變成「低塑模範生」？試試把瓶裝水歸零。';
+    verdict.textContent = '你落在全球平均估計區間（78,000–211,000 顆/年）內。看看右邊「≈ 顆」——哪一項貢獻最大？';
   } else {
     verdict.textContent = '✅ 低於全球平均估計！但記住：這裡只算了五種食物，估算值僅供教學。';
   }
